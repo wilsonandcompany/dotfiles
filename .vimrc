@@ -64,12 +64,6 @@ let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 set rtp+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-" vundle dependencies
-
-Bundle "MarcWeber/vim-addon-mw-utils"
-Bundle "tomtom/tlib_vim"
-Bundle "honza/snipmate-snippets"
-
 " vundle bundles
 
 Bundle 'gmarik/vundle'
