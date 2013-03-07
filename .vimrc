@@ -4,8 +4,6 @@ filetype plugin indent on
 syntax on
 colorscheme molokai
 
-set scroll=5
-
 " ctrl p navigation
 
 let g:ctrlp_map = '<c-p>'
@@ -54,6 +52,7 @@ set undofile
 
 " my stuff
 
+set scroll=5
 nnoremap <leader>j :A<cr>
 
 let g:UltiSnipsExpandTrigger="<c-j>"
@@ -72,7 +71,7 @@ Bundle "tomtom/tlib_vim"
 Bundle "honza/snipmate-snippets"
 
 " vundle bundles
-"
+
 Bundle 'gmarik/vundle'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'kien/ctrlp.vim'
