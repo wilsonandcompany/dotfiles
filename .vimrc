@@ -29,6 +29,9 @@ inoremap jj <ESC>
 nnoremap ; :
 let mapleader = ","
 
+set nocompatible
+set modelines=0
+
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
@@ -50,6 +53,23 @@ set backspace=indent,eol,start
 set laststatus=2
 set undofile
 
+nnoremap / /\v
+vnoremap / /\v
+set ignorecase
+set smartcase
+set gdefault
+set incsearch
+set showmatch
+set hlsearch
+nnoremap <leader><space> :noh<cr>
+
+nnoremap j gj
+nnoremap k gk
+
+inoremap <F1> <ESC>
+nnoremap <F1> <ESC>
+vnoremap <F1> <ESC>
+
 " my stuff
 
 set scroll=5
@@ -58,6 +78,8 @@ nnoremap <leader>j :A<cr>
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+
+map <C-n> :NERDTreeToggle<CR>
 
 " vundle
 
@@ -70,3 +92,4 @@ Bundle 'gmarik/vundle'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'kien/ctrlp.vim'
 Bundle 'SirVer/ultisnips'
+Bundle 'airblade/vim-gitgutter.git'
