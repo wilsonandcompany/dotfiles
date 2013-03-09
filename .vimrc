@@ -1,4 +1,3 @@
-execute pathogen#infect()
 filetype plugin indent on
 
 syntax on
@@ -45,7 +44,6 @@ set showcmd
 set hidden
 set wildmenu
 set wildmode=list:longest
-set visualbell
 set cursorline
 set ttyfast
 set ruler
@@ -75,6 +73,7 @@ vnoremap <F1> <ESC>
 set scroll=5
 nnoremap <leader>j :A<cr>
 
+set runtimepath+=~/.vim/bundle/ultisnips
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
@@ -83,7 +82,7 @@ map <C-n> :NERDTreeToggle<CR>
 
 " vundle
 
-set rtp+=~/.vim/bundle/vundle/
+set runtimepath+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 " vundle bundles
