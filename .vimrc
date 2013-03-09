@@ -1,7 +1,7 @@
 filetype plugin indent on
 
 syntax on
-colorscheme molokai
+colorscheme elflord
 
 " ctrl p navigation
 
@@ -88,7 +88,6 @@ call vundle#rc()
 " vundle bundles
 
 Bundle 'gmarik/vundle'
-Bundle 'Valloric/YouCompleteMe'
 Bundle 'kien/ctrlp.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'airblade/vim-gitgutter.git'
