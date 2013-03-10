@@ -1,26 +1,8 @@
+let g:UltiSnipsUsePythonVersion = 2
 filetype plugin indent on
 
 syntax on
 colorscheme molokai
-
-" ctrl p navigation
-
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'c'
-
-" relative and absolute numbers
-
-set number
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set number
-  else
-    set relativenumber
-  endif
-endfunc
-
-nnoremap <C-m> :call NumberToggle()<cr>
 
 " stuff from steve's blog
 
@@ -49,7 +31,6 @@ set ttyfast
 set ruler
 set backspace=indent,eol,start
 set laststatus=2
-set undofile
 
 nnoremap / /\v
 vnoremap / /\v
@@ -78,7 +59,35 @@ let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 
+set splitright
+set splitbelow
+
 map <C-n> :NERDTreeToggle<CR>
+
+" ctrl p navigation
+
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'c'
+
+" ctags convenience funcs
+
+set tags=./tags;/
+"map <A-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+" relative and absolute numbers
+
+set number
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+
+nnoremap <C-m> :call NumberToggle()<cr>
 
 " vundle
 
@@ -92,3 +101,4 @@ Bundle 'Valloric/YouCompleteMe'
 Bundle 'kien/ctrlp.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'airblade/vim-gitgutter.git'
+Bundle 'scrooloose/syntastic.git'
