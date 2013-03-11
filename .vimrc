@@ -1,9 +1,23 @@
-let g:UltiSnipsUsePythonVersion = 2
-filetype plugin indent on
+set nocompatible
 
-syntax on
-colorscheme molokai
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vundle
 
+filetype off			" required by vundle
+
+set runtimepath+=~/.vim/bundle/vundle/
+call vundle#rc()
+
+Bundle 'gmarik/vundle'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'kien/ctrlp.vim'
+Bundle 'SirVer/ultisnips'
+Bundle 'airblade/vim-gitgutter.git'
+Bundle 'scrooloose/syntastic.git'
+
+filetype plugin indent on 	" required by vundle
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " stuff from steve's blog
 
 inoremap jj <ESC>
@@ -49,12 +63,14 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " my stuff
 
+syntax on
+colorscheme molokai
 set scroll=5
 nnoremap <leader>j :A<cr>
 
-set runtimepath+=~/.vim/bundle/ultisnips
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
@@ -89,16 +105,3 @@ endfunc
 
 nnoremap <C-m> :call NumberToggle()<cr>
 
-" vundle
-
-set runtimepath+=~/.vim/bundle/vundle/
-call vundle#rc()
-
-" vundle bundles
-
-Bundle 'gmarik/vundle'
-Bundle 'Valloric/YouCompleteMe'
-Bundle 'kien/ctrlp.vim'
-Bundle 'SirVer/ultisnips'
-Bundle 'airblade/vim-gitgutter.git'
-Bundle 'scrooloose/syntastic.git'
