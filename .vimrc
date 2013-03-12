@@ -14,6 +14,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'airblade/vim-gitgutter.git'
 Bundle 'scrooloose/syntastic.git'
+Bundle 'scrooloose/nerdtree.git'
 
 filetype plugin indent on 	" required by vundle
 
