@@ -75,7 +75,9 @@ nnoremap <leader>j :A<cr>
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
-let g:UltiSnipsSnippetsDir="~/.vim/bundle/ultisnips/UltiSnips"
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
+let g:UltiSnipsSnippetsDir="~/.vim/my_snippets"
+set runtimepath+=~/.vim/bundle/ultisnips/
 
 set splitright
 set splitbelow
