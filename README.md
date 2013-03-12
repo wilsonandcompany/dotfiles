@@ -1,4 +1,7 @@
-vim
+dotfiles
 ===
 
-Repo for my vim setup. Uses vundle to manage plugins. Take a look at the bundles listed in .vimrc.
+Various dot files in my home directory. Uses vundle to manage plugins, which are listed in .vimrc.
+
+exuberant_ctags is required.
+you complete me needs to be compiled.

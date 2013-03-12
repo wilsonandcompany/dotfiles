@@ -1,27 +1,24 @@
-filetype plugin indent on
+set nocompatible
 
-syntax on
-colorscheme elflord
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" vundle
 
-" ctrl p navigation
+filetype off			" required by vundle
 
-let g:ctrlp_map = '<c-p>'
-let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'c'
+set runtimepath+=~/.vim/bundle/vundle/
+call vundle#rc()
 
-" relative and absolute numbers
+Bundle 'gmarik/vundle'
+Bundle 'Valloric/YouCompleteMe'
+Bundle 'kien/ctrlp.vim'
+Bundle 'SirVer/ultisnips'
+Bundle 'airblade/vim-gitgutter.git'
+Bundle 'scrooloose/syntastic.git'
+Bundle 'scrooloose/nerdtree.git'
 
-set number
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set number
-  else
-    set relativenumber
-  endif
-endfunc
+filetype plugin indent on 	" required by vundle
 
-nnoremap <C-m> :call NumberToggle()<cr>
-
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " stuff from steve's blog
 
 inoremap jj <ESC>
@@ -67,26 +64,46 @@ inoremap <F1> <ESC>
 nnoremap <F1> <ESC>
 vnoremap <F1> <ESC>
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " my stuff
 
+syntax on
+colorscheme elflord
 set scroll=5
-nnoremap <leader>j :A<cr>
 
-set runtimepath+=~/.vim/bundle/ultisnips
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
+let g:UltiSnipsSnippetsDir="~/.vim/my_snippets"
+set runtimepath+=~/.vim/bundle/ultisnips/
+
+set splitright
+set splitbelow
 
 map <C-n> :NERDTreeToggle<CR>
 
-" vundle
+" ctrl p navigation
 
-set runtimepath+=~/.vim/bundle/vundle/
-call vundle#rc()
+let g:ctrlp_map = '<c-p>'
+let g:ctrlp_cmd = 'CtrlP'
+let g:ctrlp_working_path_mode = 'c'
 
-" vundle bundles
+" ctags convenience funcs
 
-Bundle 'gmarik/vundle'
-Bundle 'kien/ctrlp.vim'
-Bundle 'SirVer/ultisnips'
-Bundle 'airblade/vim-gitgutter.git'
+set tags=./tags;/
+"map <A-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+map <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+" relative and absolute numbers
+
+set number
+function! NumberToggle()
+  if(&relativenumber == 1)
+    set number
+  else
+    set relativenumber
+  endif
+endfunc
+
+nnoremap <C-m> :call NumberToggle()<cr>
