@@ -15,7 +15,7 @@ Bundle 'SirVer/ultisnips'
 Bundle 'airblade/vim-gitgutter.git'
 Bundle 'scrooloose/syntastic.git'
 Bundle 'scrooloose/nerdtree.git'
-
+Bundle 'tpope/vim-fugitive.git'
 filetype plugin indent on 	" required by vundle
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
