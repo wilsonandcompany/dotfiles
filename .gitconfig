@@ -1,0 +1,6 @@
+[http "ssl"]
+	verify = false
+
+[user]
+  name = wilson leong
+  email = wleong@gettyimages.com
