@@ -9,13 +9,13 @@ set runtimepath+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 Bundle 'kien/ctrlp.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'airblade/vim-gitgutter.git'
 Bundle 'scrooloose/syntastic.git'
 Bundle 'scrooloose/nerdtree.git'
-
+Bundle 'tpope/vim-fugitive.git'
 filetype plugin indent on 	" required by vundle
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -68,7 +68,7 @@ vnoremap <F1> <ESC>
 " my stuff
 
 syntax on
-colorscheme elflord
+colorscheme molokai
 set scroll=5
 
 let g:UltiSnipsExpandTrigger="<c-j>"

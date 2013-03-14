@@ -1,26 +1,25 @@
-#export PATH=/usr/local/git/bin:$PATH
-source ~/.bashrc
+# ~/.profile: executed by the command interpreter for login shells.
+# This file is not read by bash(1), if ~/.bash_profile or ~/.bash_login
+# exists.
+# see /usr/share/doc/bash/examples/startup-files for examples.
+# the files are located in the bash-doc package.
+
+# the default umask is set in /etc/profile; for setting the umask
+# for ssh logins, install and configure the libpam-umask package.
+#umask 022
+
+# if running bash
+if [ -n "$BASH_VERSION" ]; then
+    # include .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+	. "$HOME/.bashrc"
+    fi
+fi
+
+# set PATH so it includes user's private bin if it exists
+if [ -d "$HOME/bin" ] ; then
+    PATH="$HOME/bin:$PATH"
+fi
 
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
-case "$TERM" in
-  xterm-*color) color_prompt=yes;;
-esac
-
-PS1='\[\033[01;32m\]\u@macair\033[00m\]:\[\033[01;34m\]\w\[\033[00m\]\$ '
-
-function path(){
-    old=$IFS
-    IFS=:
-    printf "%s\n" $PATH
-    IFS=$old
-}
-
-# MacPorts Installer addition on 2009-12-31_at_14:19:53: adding an appropriate MANPATH variable for use with MacPorts.
-#export MANPATH=/opt/local/share/man:$MANPATH
-# Finished adapting your MANPATH environment variable for use with MacPorts.
-
-# MacPorts Installer addition on 2012-03-13_at_14:00:41: adding an appropriate PATH variable for use with MacPorts.
-#export PATH=/opt/local/bin:/opt/local/sbin:$PATH
-# Finished adapting your PATH environment variable for use with MacPorts.
-
