@@ -72,17 +72,24 @@ colorscheme molokai
 set scroll=5
 nnoremap <leader>j :A<cr>
 
+set splitright
+set splitbelow
+
+map <c-n> :NERDTreeToggle<CR>
+
+" ycm
+
+let g:ycm_key_list_select_completion = ['<c-j>']
+let g:ycm_key_list_previous_completion = ['<c-k>']
+
+" ultisnips
+
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
 let g:UltiSnipsSnippetsDir="~/.vim/my_snippets"
 set runtimepath+=~/.vim/bundle/ultisnips/
-
-set splitright
-set splitbelow
-
-map <C-n> :NERDTreeToggle<CR>
 
 " ctrl p navigation
 
