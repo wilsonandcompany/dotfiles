@@ -16,6 +16,7 @@ Bundle 'airblade/vim-gitgutter.git'
 Bundle 'scrooloose/syntastic.git'
 Bundle 'scrooloose/nerdtree.git'
 Bundle 'tpope/vim-fugitive.git'
+Bundle 'mileszs/ack.vim.git'
 filetype plugin indent on 	" required by vundle
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -70,7 +71,7 @@ vnoremap <F1> <ESC>
 syntax on
 colorscheme molokai
 set scroll=5
-nnoremap <leader>j :A<cr>
+nnoremap <leader>m :A<cr>
 
 set splitright
 set splitbelow
