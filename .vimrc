@@ -16,6 +16,10 @@ Bundle 'airblade/vim-gitgutter.git'
 Bundle 'scrooloose/syntastic.git'
 Bundle 'scrooloose/nerdtree.git'
 Bundle 'tpope/vim-fugitive.git'
+Bundle 'kchmck/vim-coffee-script.git'
+Bundle 'git://github.com/pangloss/vim-javascript.git'
+Bundle 'tpope/vim-rails.git'
+Bundle 'mileszs/ack.vim.git'
 filetype plugin indent on 	" required by vundle
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -87,7 +91,7 @@ map <C-n> :NERDTreeToggle<CR>
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'c'
+let g:ctrlp_working_path_mode = 'rc'
 
 " ctags convenience funcs
 
