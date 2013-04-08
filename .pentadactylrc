@@ -8,6 +8,5 @@ map -count -modes=i <C-c> <Esc>
 map -count -modes=i jj <Esc>
 map -count -modes=t <C-c> <Esc>
 map -count -modes=v <C-c> <count><Esc>
-set noinsertmode
 
 " vim: set ft=pentadactyl:
