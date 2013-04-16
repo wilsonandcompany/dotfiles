@@ -26,7 +26,7 @@ filetype plugin indent on 	" required by vundle
 " stuff from steve's blog
 
 inoremap jj <ESC>
-nnoremap ; :
+"nnoremap ; :
 let mapleader = ","
 
 set nocompatible
@@ -51,8 +51,8 @@ set ruler
 set backspace=indent,eol,start
 set laststatus=2
 
-nnoremap / /\v
-vnoremap / /\v
+nnoremap / /\V
+vnoremap / /\V
 set ignorecase
 set smartcase
 set gdefault
