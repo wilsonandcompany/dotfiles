@@ -75,6 +75,13 @@ syntax on
 colorscheme molokai
 set scroll=5
 
+set splitright
+set splitbelow
+
+map <c-n> :NERDTreeToggle<CR>
+
+" ultisnips
+
 let g:UltiSnipsExpandTrigger="<c-j>"
 let g:UltiSnipsJumpForwardTrigger="<c-j>"
 let g:UltiSnipsJumpBackwardTrigger="<c-k>"
