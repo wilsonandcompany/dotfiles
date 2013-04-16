@@ -82,11 +82,6 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
 let g:UltiSnipsSnippetsDir="~/.vim/my_snippets"
 set runtimepath+=~/.vim/bundle/ultisnips/
 
-set splitright
-set splitbelow
-
-map <C-n> :NERDTreeToggle<CR>
-
 " ctrl p navigation
 
 let g:ctrlp_map = '<c-p>'
