@@ -20,6 +20,7 @@ Bundle 'kchmck/vim-coffee-script.git'
 Bundle 'git://github.com/pangloss/vim-javascript.git'
 Bundle 'tpope/vim-rails.git'
 Bundle 'mileszs/ack.vim.git'
+Bundle 'mhinz/vim-startify.git'
 filetype plugin indent on 	" required by vundle
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -75,8 +76,11 @@ syntax on
 colorscheme molokai
 set scroll=5
 
+set number
 set splitright
 set splitbelow
+set list
+set listchars:trail:·
 
 map <c-n> :NERDTreeToggle<CR>
 
@@ -100,16 +104,3 @@ let g:ctrlp_working_path_mode = 'rc'
 set tags=./tags;/
 "map <A-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
-
-" relative and absolute numbers
-
-set number
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set number
-  else
-    set relativenumber
-  endif
-endfunc
-
-nnoremap <C-m> :call NumberToggle()<cr>
