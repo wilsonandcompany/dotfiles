@@ -17,6 +17,7 @@ Bundle 'scrooloose/syntastic.git'
 Bundle 'scrooloose/nerdtree.git'
 Bundle 'tpope/vim-fugitive.git'
 Bundle 'mileszs/ack.vim.git'
+Bundle 'Lokaltog/vim-easymotion.git'
 filetype plugin indent on 	" required by vundle
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -56,7 +57,7 @@ set gdefault
 set incsearch
 set showmatch
 set hlsearch
-nnoremap <leader><space> :noh<cr>
+nnoremap <silent> <leader><space> :nohlsearch<CR>
 
 nnoremap j gj
 nnoremap k gk
@@ -71,10 +72,11 @@ vnoremap <F1> <ESC>
 syntax on
 colorscheme molokai
 set scroll=5
-nnoremap <leader>m :A<cr>
 
 set splitright
 set splitbelow
+set showbreak=↪
+nnoremap Q <nop>
 
 map <c-n> :NERDTreeToggle<CR>
 
@@ -104,6 +106,11 @@ set tags=./tags;/
 "map <A-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
+" alternate
+
+autocmd FileType objc let g:alternateExtensions_h = "m" 
+autocmd FileType objc let g:alternateExtensions_m = "h"
+
 " relative and absolute numbers
 
 set number
@@ -116,4 +123,11 @@ function! NumberToggle()
 endfunc
 
 nnoremap <C-m> :call NumberToggle()<cr>
+
+" auto reloading of vimrc
+
+augroup reload_vimrc " {
+  autocmd!
+  autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
 
