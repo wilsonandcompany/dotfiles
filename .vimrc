@@ -21,6 +21,10 @@ Bundle 'git://github.com/pangloss/vim-javascript.git'
 Bundle 'tpope/vim-rails.git'
 Bundle 'mileszs/ack.vim.git'
 Bundle 'mhinz/vim-startify.git'
+Bundle 'Lokaltog/vim-easymotion.git'
+Bundle 'altercation/vim-colors-solarized.git'
+Bundle 'Chiel92/vim-autoformat'
+
 filetype plugin indent on 	" required by vundle
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -73,7 +77,8 @@ vnoremap <F1> <ESC>
 " my stuff
 
 syntax on
-colorscheme molokai
+set background=dark
+colorscheme solarized
 set scroll=5
 
 set number
@@ -81,8 +86,15 @@ set splitright
 set splitbelow
 set list
 set listchars:trail:·
+set scrolloff=5
+set autoread
 
 map <c-n> :NERDTreeToggle<CR>
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+" easymotion
+
+let g:EasyMotion_leader_key = '<tab>'
 
 " ultisnips
 

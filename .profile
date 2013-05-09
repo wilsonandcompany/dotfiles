@@ -21,5 +21,5 @@ if [ -d "$HOME/bin" ] ; then
     PATH="$HOME/bin:$PATH"
 fi
 
-export CLICOLOR=1
-export LSCOLORS=ExFxCxDxBxegedabagacad
+#export CLICOLOR=1
+#export LSCOLORS=ExFxCxDxBxegedabagacad
