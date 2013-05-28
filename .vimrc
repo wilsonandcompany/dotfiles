@@ -24,7 +24,9 @@ Bundle 'mhinz/vim-startify.git'
 Bundle 'Lokaltog/vim-easymotion.git'
 Bundle 'altercation/vim-colors-solarized.git'
 Bundle 'Chiel92/vim-autoformat'
-
+Bundle 'elzr/vim-json.git'
+Bundle 'ervandew/screen.git'
+Bundle 'slim-template/vim-slim'
 filetype plugin indent on 	" required by vundle
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -88,13 +90,11 @@ set list
 set listchars:trail:·
 set scrolloff=5
 set autoread
+inoremap <C-U> <C-G>u<C-U>
+inoremap <C-W> <C-G>u<C-W>
 
 map <c-n> :NERDTreeToggle<CR>
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
-" easymotion
-
-let g:EasyMotion_leader_key = '<tab>'
 
 " ultisnips
 
@@ -116,3 +116,17 @@ let g:ctrlp_working_path_mode = 'rc'
 set tags=./tags;/
 "map <A-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" irb-config
+
+" Screen settings
+let g:ScreenImpl = 'Tmux'
+let g:ScreenShellTmuxInitArgs = '-2'
+let g:ScreenShellInitialFocus = 'shell'
+let g:ScreenShellQuitOnVimExit = 0
+map <F5> :ScreenShellVertical<CR>
+command -nargs=? -complete=shellcmd W  :w | :call ScreenShellSend("load '".@%."';")
+map <Leader>r :w<CR> :call ScreenShellSend("rspec ".@% . ':' . line('.'))<CR>
+map <Leader>e :w<CR> :call ScreenShellSend("cucumber --format=pretty ".@% . ':' . line('.'))<CR>
+map <Leader>b :w<CR> :call ScreenShellSend("break ".@% . ':' . line('.'))<CR>

@@ -1,7 +1,15 @@
 [user]
-  name = wilson leong
+  name = wleong
   email = wleong@gettyimages.com
 [http]
 	sslVerify = false
 [core]
 	editor = vim
+[alias]
+  ls = log --pretty=format:"%C(yellow)%h\\ %Cblue[%cn]\\ %Cgreen<%ad>\\ %n%Creset%s%n" --decorate
+  pushcurrent = "!f() { git push ${1:-origin} `git symbolic-ref HEAD`; }; f"
+  pullcurrent = "!f() { git pull -u ${1:-origin} `git symbolic-ref HEAD`; }; f"
+  unpushed = !"PROJ_BRANCH=$(git symbolic-ref HEAD | sed 's|refs/heads/||') && git log origin/$PROJ_BRANCH..HEAD"
+    unpulled = !"PROJ_BRANCH=$(git symbolic-ref HEAD | sed 's|refs/heads/||') && git fetch && git log HEAD..origin/$PROJ_BRANCH"
+[credential]
+  helper = cache --timeout=3600
