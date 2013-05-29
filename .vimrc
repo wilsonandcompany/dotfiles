@@ -33,8 +33,7 @@ filetype plugin indent on 	" required by vundle
 " stuff from steve's blog
 
 inoremap jj <ESC>
-"nnoremap ; :
-let mapleader = ","
+"let mapleader = ","
 
 set nocompatible
 set modelines=0
@@ -66,7 +65,7 @@ set gdefault
 set incsearch
 set showmatch
 set hlsearch
-nnoremap <leader><space> :noh<cr>
+nnoremap <A-Space> :noh<cr>
 
 nnoremap j gj
 nnoremap k gk
@@ -77,6 +76,12 @@ vnoremap <F1> <ESC>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " my stuff
+
+if $TERM =~ '256color'
+  set t_Co=256
+elseif $TERM =~ '^xterm$'
+  set t_Co=256
+endif
 
 syntax on
 set background=dark
@@ -90,11 +95,17 @@ set list
 set listchars:trail:·
 set scrolloff=5
 set autoread
-inoremap <C-U> <C-G>u<C-U>
-inoremap <C-W> <C-G>u<C-W>
 
 map <c-n> :NERDTreeToggle<CR>
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+command ACK Ack
+command Vimrc e ~/.vimrc
+
+" easy motion
+
+map <C-J> <leader><leader>j
+map <C-K> <leader><leader>k
 
 " ultisnips
 
@@ -116,6 +127,28 @@ let g:ctrlp_working_path_mode = 'rc'
 set tags=./tags;/
 "map <A-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 map <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" mapping alt keys
+
+vnoremap <Esc> <C-v><Esc>
+cnoremap <Esc> <C-c>
+map <A-c> ihello<esc>
+let c='a'
+while c <= 'z'
+  exec "set <A-".c.">=\e".c
+  exec "imap \e".c." <A-".c.">"
+  let c = nr2char(1+char2nr(c))
+endw
+
+"let c='A'
+"while c <= 'Z'
+"  exec "set <A-".c.">=\e".c
+"  exec "imap \e".c." <A-".c.">"
+"  let c = nr2char(1+char2nr(c))
+"endw
+
+set timeout ttimeoutlen=50
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " irb-config
