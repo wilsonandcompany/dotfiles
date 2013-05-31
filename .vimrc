@@ -77,9 +77,7 @@ vnoremap <F1> <ESC>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " my stuff
 
-if $TERM =~ '256color'
-  set t_Co=256
-elseif $TERM =~ '^xterm$'
+if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
   set t_Co=256
 endif
 
