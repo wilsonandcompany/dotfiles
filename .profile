@@ -23,3 +23,12 @@ fi
 
 #export CLICOLOR=1
 #export LSCOLORS=ExFxCxDxBxegedabagacad
+
+##
+# Your previous /Users/wleong/.profile file was backed up as /Users/wleong/.profile.macports-saved_2013-05-31_at_14:48:36
+##
+
+# MacPorts Installer addition on 2013-05-31_at_14:48:36: adding an appropriate PATH variable for use with MacPorts.
+export PATH=/opt/local/bin:/opt/local/sbin:$PATH
+# Finished adapting your PATH environment variable for use with MacPorts.
+

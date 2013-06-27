@@ -20,7 +20,6 @@ Bundle 'kchmck/vim-coffee-script.git'
 Bundle 'git://github.com/pangloss/vim-javascript.git'
 Bundle 'tpope/vim-rails.git'
 Bundle 'mileszs/ack.vim.git'
-Bundle 'mhinz/vim-startify.git'
 Bundle 'Lokaltog/vim-easymotion.git'
 Bundle 'altercation/vim-colors-solarized.git'
 Bundle 'Chiel92/vim-autoformat'
@@ -65,7 +64,7 @@ set gdefault
 set incsearch
 set showmatch
 set hlsearch
-nnoremap <A-Space> :noh<cr>
+nnoremap <leader><Space> :noh<cr>
 
 nnoremap j gj
 nnoremap k gk
@@ -129,15 +128,15 @@ map <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " mapping alt keys
 
-vnoremap <Esc> <C-v><Esc>
-cnoremap <Esc> <C-c>
-map <A-c> ihello<esc>
-let c='a'
-while c <= 'z'
-  exec "set <A-".c.">=\e".c
-  exec "imap \e".c." <A-".c.">"
-  let c = nr2char(1+char2nr(c))
-endw
+"vnoremap <Esc> <C-v><Esc>
+"cnoremap <Esc> <C-c>
+"map <A-c> ihello<esc>
+"let c='a'
+"while c <= 'z'
+"  exec "set <A-".c.">=\e".c
+"  exec "imap \e".c." <A-".c.">"
+"  let c = nr2char(1+char2nr(c))
+"endw
 
 "let c='A'
 "while c <= 'Z'
@@ -146,7 +145,7 @@ endw
 "  let c = nr2char(1+char2nr(c))
 "endw
 
-set timeout ttimeoutlen=50
+"set timeout ttimeoutlen=50
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " irb-config

@@ -1,5 +1,4 @@
 
-alias ack='ACK_PAGER_COLOR="less -x4SRFX" /usr/bin/ack-grep'
 alias update_db='rake db:drop db:create db:migrate db:test:prepare'
 alias ll='ls -alF'
 alias la='ls -A'
