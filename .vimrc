@@ -19,13 +19,14 @@ Bundle 'tpope/vim-fugitive.git'
 Bundle 'mileszs/ack.vim.git'
 Bundle 'Lokaltog/vim-easymotion.git'
 Bundle 'xolox/vim-easytags.git'
+Bundle 'mhinz/vim-startify.git'
+Bundle 'vim-scripts/EasyGrep.git'
 filetype plugin indent on 	" required by vundle
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " stuff from steve's blog
 
 inoremap jj <ESC>
-"nnoremap ; :
 let mapleader = ","
 
 set nocompatible
@@ -77,9 +78,13 @@ set scroll=5
 set splitright
 set splitbelow
 set showbreak=↪
+set nofoldenable
 nnoremap Q <nop>
 
 map <c-n> :NERDTreeToggle<CR>
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+
+"let g:EasyMotion_leader_key = '<tab>'
 
 " ycm
 
@@ -103,27 +108,14 @@ let g:ctrlp_working_path_mode = 'c'
 " ctags convenience funcs
 
 set tags=./tags;/
-"map <A-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-map <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+"nnoremap <A-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 let g:easytags_updatetime_min = 2000
 
 " alternate
 
 autocmd FileType objc let g:alternateExtensions_h = "m" 
 autocmd FileType objc let g:alternateExtensions_m = "h"
-
-" relative and absolute numbers
-
-set number
-function! NumberToggle()
-  if(&relativenumber == 1)
-    set number
-  else
-    set relativenumber
-  endif
-endfunc
-
-nnoremap <C-m> :call NumberToggle()<cr>
 
 " auto reloading of vimrc
 
