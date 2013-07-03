@@ -3,7 +3,7 @@ set nocompatible
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " vundle
 
-filetype off			" required by vundle
+filetype off                            " required by vundle
 
 set runtimepath+=~/.vim/bundle/vundle/
 call vundle#rc()
@@ -21,13 +21,13 @@ Bundle 'Lokaltog/vim-easymotion.git'
 Bundle 'xolox/vim-easytags.git'
 Bundle 'mhinz/vim-startify.git'
 Bundle 'vim-scripts/EasyGrep.git'
-filetype plugin indent on 	" required by vundle
+filetype plugin indent on               " required by vundle
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " stuff from steve's blog
 
 inoremap jj <ESC>
-let mapleader = ","
+"let mapleader = ","
 
 set nocompatible
 set modelines=0
@@ -79,12 +79,30 @@ set splitright
 set splitbelow
 set showbreak=↪
 set nofoldenable
-nnoremap Q <nop>
+"set list
+set listchars:trail:·
+set autoread
+command Vimrc e ~/.vimrc
 
 map <c-n> :NERDTreeToggle<CR>
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
 "let g:EasyMotion_leader_key = '<tab>'
+
+" syntastic
+
+let g:syntastic_check_on_open=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_loc_list_height=5
+"let g:syntastic_quiet_warnings=1
+set statusline+=%#warningmsg#
+set statusline+=%{SyntasticStatuslineFlag()}
+set statusline+=%*
+
+" easy motion
+
+map <C-J> <leader><leader>j
+map <C-K> <leader><leader>k
 
 " ycm
 
