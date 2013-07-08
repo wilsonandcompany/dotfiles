@@ -90,11 +90,14 @@ set splitright
 set splitbelow
 set list
 set listchars:trail:·
+set showbreak=↪
 set scrolloff=5
 set autoread
 
 nnoremap 0 ^
 nnoremap ^ 0
+set nofoldenable
+nnoremap Q <nop>
 
 map <c-n> :NERDTreeToggle<CR>
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
