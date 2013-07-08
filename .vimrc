@@ -93,6 +93,9 @@ set listchars:trail:·
 set scrolloff=5
 set autoread
 
+nnoremap 0 ^
+nnoremap ^ 0
+
 map <c-n> :NERDTreeToggle<CR>
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
