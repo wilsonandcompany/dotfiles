@@ -1,15 +1,63 @@
 [user]
   name = Wilson Leong
   email = wilson@binaryrebellion.com
+
 [http]
   sslVerify = false
+
 [core]
   editor = vim
+  whitespace = trailing-space,space-before-tab
+
 [alias]
-  ls = log --pretty=format:"%C(yellow)%h\\ %Cblue[%cn]\\ %Cgreen<%ad>\\ %n%Creset%s%n" --decorate
+  ll = log --pretty=format:"%C(yellow)%h\\ %Cblue[%cn]\\ %Cgreen<%ad>\\ %n%Creset%s%n" --decorate
   pushcurrent = "!f() { git push ${1:-origin} `git symbolic-ref HEAD`; }; f"
   pullcurrent = "!f() { git pull -u ${1:-origin} `git symbolic-ref HEAD`; }; f"
   unpushed = !"PROJ_BRANCH=$(git symbolic-ref HEAD | sed 's|refs/heads/||') && git log origin/$PROJ_BRANCH..HEAD"
     unpulled = !"PROJ_BRANCH=$(git symbolic-ref HEAD | sed 's|refs/heads/||') && git fetch && git log HEAD..origin/$PROJ_BRANCH"
+  s = status --short --branch
+  co = checkout
+  a = add
+  aa = add --all
+  ap = add --patch
+  amend = commit --amend
+  ca = commit -a
+  cam = commit -am
+  cm = commit -m
+  undo = reset --soft HEAD@{1}
+  l = "!git log --pretty='tformat:%C(yellow)%h{%C(green)%ar{%C(bold blue)%an{%C(red)%d%C(reset) %s' $* | column -t -s '{' | less -FXRS"
+  lg = log --graph --pretty=format:'%Cred%h%Creset %an -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+
 [credential]
   helper = cache --timeout=3600
+
+[push]
+  default = simple
+
+[advice]
+  detachedHead = false
+  statusHints = false
+  pushNonFastForward = false
+
+[diff]
+  renames = copies
+  mnemonicprefix = true
+
+[color]
+  ui = true
+
+[color "branch"]
+  current = yellow reverse
+  local = green
+  remote = blue
+
+[color "diff"]
+  meta = yellow bold
+  frag = magenta bold
+  old = red bold
+  new = green bold
+
+[color "status"]
+  added = green
+  changed = red
+  untracked = cyan
