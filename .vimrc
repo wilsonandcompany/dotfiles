@@ -75,6 +75,7 @@ syntax on
 colorscheme molokai
 set scroll=5
 
+set number
 set splitright
 set splitbelow
 set showbreak=↪
@@ -82,7 +83,7 @@ set nofoldenable
 "set list
 set listchars:trail:·
 set autoread
-command Vimrc e ~/.vimrc
+command! Vimrc e ~/.vimrc
 
 map <c-n> :NERDTreeToggle<CR>
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
@@ -92,9 +93,9 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " syntastic
 
 let g:syntastic_check_on_open=1
-let g:syntastic_auto_loc_list=1
+"let g:syntastic_auto_loc_list=1
 let g:syntastic_loc_list_height=5
-"let g:syntastic_quiet_warnings=1
+let g:syntastic_quiet_warnings=1
 set statusline+=%#warningmsg#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*
