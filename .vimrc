@@ -16,79 +16,100 @@ Bundle 'airblade/vim-gitgutter.git'
 Bundle 'scrooloose/syntastic.git'
 Bundle 'scrooloose/nerdtree.git'
 Bundle 'tpope/vim-fugitive.git'
+Bundle 'kchmck/vim-coffee-script.git'
+Bundle 'git://github.com/pangloss/vim-javascript.git'
+Bundle 'tpope/vim-rails.git'
 Bundle 'mileszs/ack.vim.git'
 Bundle 'Lokaltog/vim-easymotion.git'
 Bundle 'xolox/vim-easytags.git'
+"Bundle 'altercation/vim-colors-solarized.git'
+Bundle 'Chiel92/vim-autoformat'
+Bundle 'elzr/vim-json.git'
+Bundle 'othree/xml.vim'
+Bundle 'scrooloose/nerdcommenter.git'
 Bundle 'mhinz/vim-startify.git'
-Bundle 'vim-scripts/EasyGrep.git'
 filetype plugin indent on               " required by vundle
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " stuff from steve's blog
 
+" easily quit insert mode
 inoremap jj <ESC>
 "let mapleader = ","
 
 set nocompatible
 set modelines=0
 
+" tab settings
 set tabstop=4
 set shiftwidth=4
 set softtabstop=4
-set expandtab
+set expandtab                     " turn tabs into spaces
 
 set encoding=utf-8
-set scrolloff=3
+set scrolloff=3                   " minimal number of screen lines above/below cursor
 set autoindent
-set showmode
-set showcmd
-set hidden
-set wildmenu
-set wildmode=list:longest
-set cursorline
-set ttyfast
-set ruler
-set backspace=indent,eol,start
-set laststatus=2
 
+set showmode                      " show current mode
+set showcmd                       " show command last line bottom right
+set hidden                        " buffers become hidden when abandoned
+set wildmenu                      " enhanced autocomplete
+set wildmode=list:longest         " ...
+set cursorline                    " highlight line that cursor is on
+set ttyfast                       " fast terminal connection for redrawing
+set ruler                         " show line column number
+set backspace=indent,eol,start    " fixes possible issues with backspace on certain systems
+set laststatus=2                  " last window will always have status line
+
+" literal search
 nnoremap / /\V
 vnoremap / /\V
-set ignorecase
-set smartcase
-set gdefault
-set incsearch
-set showmatch
-set hlsearch
-nnoremap <silent> <leader><space> :nohlsearch<CR>
 
+set gdefault                      " g is on by default for substitute
+set ignorecase                    " ignores case sensitivity in search
+set smartcase                     " ignores ignorecase if any capitals present in search
+set showmatch                     " briefly move the cursor to matching cursor
+set incsearch                     " highlights while typing search
+set hlsearch                      " highlights all search matches
+" clear search highlight
+nnoremap <leader><Space> :noh<cr>
+
+" sane movement over line wrapped lines
 nnoremap j gj
 nnoremap k gk
-
-inoremap <F1> <ESC>
-nnoremap <F1> <ESC>
-vnoremap <F1> <ESC>
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " my stuff
 
+if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
+  set t_Co=256
+endif
+
 syntax on
 colorscheme molokai
+set background=dark
 set scroll=5
 
-set number
-set splitright
-set splitbelow
-set showbreak=↪
-set nofoldenable
-"set list
-set listchars:trail:·
-set autoread
 command! Vimrc e ~/.vimrc
+
+set number                        " line numbers
+set splitright                    " new splits are opened on the top
+set splitbelow                    " new splits are opened on the bottom
+"set list                          " display unprinable characters with ^
+set listchars:trail:·             " show trailing spaces with symbol
+set showbreak=↪                   " show line breaks
+set autoread                      " auto read files changed outside of vim
+
+" swap jump to beginning of line with beginning of text
+nnoremap 0 ^
+nnoremap ^ 0
+
+set nofoldenable
+nnoremap Q <nop>
 
 map <c-n> :NERDTreeToggle<CR>
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 
-"let g:EasyMotion_leader_key = '<tab>'
 
 " syntastic
 
@@ -105,10 +126,20 @@ set statusline+=%*
 map <C-J> <leader><leader>j
 map <C-K> <leader><leader>k
 
-" ycm
+nnoremap <c-w>< 10<c-w><
+nnoremap <c-w>< 10<c-w>>
+nnoremap <c-w>- 10<c-w>-
+nnoremap <c-w>+ 10<c-w>+
 
-let g:ycm_key_list_select_completion = ['<c-j>']
-let g:ycm_key_list_previous_completion = ['<c-k>']
+let g:ackprg = 'ag --nogroup --ignore-case --literal --all-text --follow'
+
+" xml
+let xml_use_xhtml = 1
+
+" easy motion
+
+map <C-J> <leader><leader>j
+map <C-K> <leader><leader>k
 
 " ultisnips
  
@@ -143,3 +174,16 @@ augroup reload_vimrc " {
   autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END " }
 
+"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" irb-config
+
+" Screen settings
+let g:ScreenImpl = 'Tmux'
+let g:ScreenShellTmuxInitArgs = '-2'
+let g:ScreenShellInitialFocus = 'shell'
+let g:ScreenShellQuitOnVimExit = 0
+map <F5> :ScreenShellVertical<CR>
+"command -nargs=? -complete=shellcmd W  :w | :call ScreenShellSend("load '".@%."';")
+map <Leader>r :w<CR> :call ScreenShellSend("rspec ".@% . ':' . line('.'))<CR>
+map <Leader>e :w<CR> :call ScreenShellSend("cucumber --format=pretty ".@% . ':' . line('.'))<CR>
+map <Leader>b :w<CR> :call ScreenShellSend("break ".@% . ':' . line('.'))<CR>
