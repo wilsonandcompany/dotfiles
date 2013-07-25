@@ -131,9 +131,15 @@ nnoremap <c-w>< 10<c-w>>
 nnoremap <c-w>- 10<c-w>-
 nnoremap <c-w>+ 10<c-w>+
 
-let g:ackprg = 'ag --nogroup --ignore-case --literal --all-text --follow'
+let g:ackprg = 'ag --nogroup --ignore-case --literal --all-text --follow --column'
+
+" ycm 
+
+let g:ycm_key_list_select_completion = ['<c-j>']
+let g:ycm_key_list_previous_completion = ['<c-k>']
 
 " xml
+
 let xml_use_xhtml = 1
 
 " easy motion
@@ -164,8 +170,8 @@ let g:easytags_updatetime_min = 2000
 
 " alternate
 
-autocmd FileType objc let g:alternateExtensions_h = "m" 
-autocmd FileType objc let g:alternateExtensions_m = "h"
+"autocmd FileType objc let g:alternateExtensions_h = "m" 
+"autocmd FileType objc let g:alternateExtensions_m = "h"
 
 " auto reloading of vimrc
 
