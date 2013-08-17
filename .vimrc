@@ -114,12 +114,19 @@ autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 " syntastic
 
 let g:syntastic_check_on_open=1
-"let g:syntastic_auto_loc_list=1
-let g:syntastic_loc_list_height=5
 let g:syntastic_quiet_warnings=1
-set statusline+=%#warningmsg#
+let g:syntastic_stl_format = '[E:%fe]'
+let g:syntastic_error_symbol='✗'
+let g:syntastic_warning_symbol='⚠'
+
+" status line
+
+set statusline=
+set statusline+=%m
+set statusline+=%f\                    " path
+set statusline+=%=%#error#
 set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*
+set statusline+=%*[%l:%c]            " line and column
 
 " easy motion
 
@@ -179,17 +186,3 @@ augroup reload_vimrc " {
   autocmd!
   autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END " }
-
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" irb-config
-
-" Screen settings
-let g:ScreenImpl = 'Tmux'
-let g:ScreenShellTmuxInitArgs = '-2'
-let g:ScreenShellInitialFocus = 'shell'
-let g:ScreenShellQuitOnVimExit = 0
-map <F5> :ScreenShellVertical<CR>
-"command -nargs=? -complete=shellcmd W  :w | :call ScreenShellSend("load '".@%."';")
-map <Leader>r :w<CR> :call ScreenShellSend("rspec ".@% . ':' . line('.'))<CR>
-map <Leader>e :w<CR> :call ScreenShellSend("cucumber --format=pretty ".@% . ':' . line('.'))<CR>
-map <Leader>b :w<CR> :call ScreenShellSend("break ".@% . ':' . line('.'))<CR>
