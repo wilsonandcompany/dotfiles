@@ -28,6 +28,7 @@ Bundle 'elzr/vim-json.git'
 Bundle 'othree/xml.vim'
 Bundle 'scrooloose/nerdcommenter.git'
 Bundle 'mhinz/vim-startify.git'
+Bundle 'tpope/vim-surround.git'
 filetype plugin indent on               " required by vundle
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -85,12 +86,16 @@ if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gno
   set t_Co=256
 endif
 
+" fix for macvim
+set go-=L
+
 syntax on
 colorscheme molokai
-set background=dark
-set scroll=5
+"set background=dark
+"set scroll=5
 
 command! Vimrc e ~/.vimrc
+command! Respace %s!\s\+$!
 
 set number                        " line numbers
 set splitright                    " new splits are opened on the top
@@ -109,7 +114,7 @@ nnoremap Q <nop>
 
 map <c-n> :NERDTreeToggle<CR>
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-
+set clipboard=unnamed
 
 " syntastic
 
@@ -127,6 +132,14 @@ set statusline+=%f\                    " path
 set statusline+=%=%#error#
 set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*[%l:%c]            " line and column
+
+" ycm
+
+let g:ycm_use_ultisnips_completer = 0
+let g:ycm_key_list_select_completion = ['<C-J>']
+let g:ycm_key_list_previous_completion = ['<C-K>']
+let g:ycm_add_preview_to_completeopt = 0
+let g:ycm_autoclose_preview_window_after_completion = 1
 
 " easy motion
 
@@ -155,9 +168,9 @@ map <C-J> <leader><leader>j
 map <C-K> <leader><leader>k
 
 " ultisnips
- 
-let g:UltiSnipsJumpForwardTrigger="<tab>"
-let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
+"let g:UltiSnipsExpandTrigger="<c-space>"
+let g:UltiSnipsJumpForwardTrigger="<c-j>"
+let g:UltiSnipsJumpBackwardTrigger="<c-k>"
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
 let g:UltiSnipsSnippetsDir="~/.vim/bundle/ultisnips/Ultisnips"
 set runtimepath+=~/.vim/bundle/ultisnips/
@@ -166,7 +179,15 @@ set runtimepath+=~/.vim/bundle/ultisnips/
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
-let g:ctrlp_working_path_mode = 'c'
+"let g:ctrlp_working_path_mode = 'c'
+set wildignore+=*/build/*,*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+
+"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
+let g:ctrlp_custom_ignore = {
+  \ 'dir':  '\v[\/]\.(git|hg|svn|xcodeproj)$',
+  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'link': 'some_bad_symbolic_links',
+  \ }
 
 " ctags convenience funcs
 
@@ -177,7 +198,7 @@ let g:easytags_updatetime_min = 2000
 
 " alternate
 
-"autocmd FileType objc let g:alternateExtensions_h = "m" 
+"autocmd FileType objc let g:alternateExtensions_h = "m"
 "autocmd FileType objc let g:alternateExtensions_m = "h"
 
 " auto reloading of vimrc
