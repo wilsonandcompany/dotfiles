@@ -8,20 +8,22 @@
 [core]
   editor = vim
   whitespace = trailing-space,space-before-tab
+  excludesfile = ~/.gitignore
 
 [alias]
+  conflicts = diff --name-only --diff-filter=U
   ll = log --pretty=format:"%C(yellow)%h\\ %Cblue[%cn]\\ %Cgreen<%ad>\\ %n%Creset%s%n" --decorate
   pushcurrent = "!f() { git push ${1:-origin} `git symbolic-ref HEAD`; }; f"
   pullcurrent = "!f() { git pull -u ${1:-origin} `git symbolic-ref HEAD`; }; f"
   unpushed = !"PROJ_BRANCH=$(git symbolic-ref HEAD | sed 's|refs/heads/||') && git log origin/$PROJ_BRANCH..HEAD"
-    unpulled = !"PROJ_BRANCH=$(git symbolic-ref HEAD | sed 's|refs/heads/||') && git fetch && git log HEAD..origin/$PROJ_BRANCH"
+  unpulled = !"PROJ_BRANCH=$(git symbolic-ref HEAD | sed 's|refs/heads/||') && git fetch && git log HEAD..origin/$PROJ_BRANCH"
+  b = branch
   s = status --short --branch
   co = checkout
   a = add
   aa = add --all
   ap = add --patch
   amend = commit --amend
-  ca = commit -a
   cam = commit -am
   cm = commit -m
   undo = reset --soft HEAD@{1}
