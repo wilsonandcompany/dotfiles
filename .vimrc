@@ -161,7 +161,7 @@ map <C-J> <leader><leader>j
 map <C-K> <leader><leader>k
 
 nnoremap <c-w>< 10<c-w><
-nnoremap <c-w>< 10<c-w>>
+nnoremap <c-w>> 10<c-w>>
 nnoremap <c-w>- 10<c-w>-
 nnoremap <c-w>+ 10<c-w>+
 
