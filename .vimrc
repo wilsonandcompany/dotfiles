@@ -12,16 +12,17 @@ Bundle 'gmarik/vundle'
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'kien/ctrlp.vim'
 Bundle 'SirVer/ultisnips'
-Bundle 'airblade/vim-gitgutter.git'
+"Bundle 'airblade/vim-gitgutter.git'
 Bundle 'scrooloose/syntastic.git'
 Bundle 'scrooloose/nerdtree.git'
-Bundle 'tpope/vim-fugitive.git'
+"Bundle 'tpope/vim-fugitive.git'
 Bundle 'kchmck/vim-coffee-script.git'
 Bundle 'git://github.com/pangloss/vim-javascript.git'
 Bundle 'tpope/vim-rails.git'
 Bundle 'mileszs/ack.vim.git'
 Bundle 'Lokaltog/vim-easymotion.git'
 Bundle 'xolox/vim-easytags.git'
+Bundle 'xolox/vim-session.git'
 Bundle 'xolox/vim-misc.git'
 "Bundle 'altercation/vim-colors-solarized.git'
 Bundle 'Chiel92/vim-autoformat'
@@ -30,6 +31,8 @@ Bundle 'othree/xml.vim'
 Bundle 'scrooloose/nerdcommenter.git'
 Bundle 'mhinz/vim-startify.git'
 Bundle 'tpope/vim-surround.git'
+Bundle 'othree/javascript-libraries-syntax.vim.git'
+
 filetype plugin indent on               " required by vundle
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -49,6 +52,8 @@ set softtabstop=4
 set expandtab                     " turn tabs into spaces
 
 autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 
 set encoding=utf-8
 set scrolloff=3                   " minimal number of screen lines above/below cursor
@@ -75,6 +80,7 @@ set smartcase                     " ignores ignorecase if any capitals present i
 set showmatch                     " briefly move the cursor to matching cursor
 set incsearch                     " highlights while typing search
 set hlsearch                      " highlights all search matches
+
 " clear search highlight
 nnoremap <leader><Space> :noh<cr>
 
@@ -107,7 +113,6 @@ set splitbelow                    " new splits are opened on the bottom
 set listchars:trail:·             " show trailing spaces with symbol
 set showbreak=↪                   " show line breaks
 set autoread                      " auto read files changed outside of vim
-set autochdir
 
 " swap jump to beginning of line with beginning of text
 nnoremap 0 ^
@@ -118,19 +123,72 @@ nnoremap Q <nop>
 nnoremap <C-W><C-C> <nop>
 nnoremap <C-W>c <nop>
 
-map <c-n> :NERDTreeToggle<CR>
+nnoremap <c-w>< 15<c-w><
+nnoremap <c-w>> 15<c-w>>
+nnoremap <c-w>- 10<c-w>-
+nnoremap <c-w>+ 10<c-w>+
+
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 set clipboard=unnamed
 
 let g:ackprg = 'ag --nogroup --ignore-case --literal --all-text --follow --column'
 
+"autocmd BufEnter * silent! lcd %:p:h
+
+" javascript-libraries-syntax
+
+let g:used_javascript_libs = 'jquery,angularjs,jasmine'
+
+" session
+
+let g:session_autosave = 'no'
+let g:session_autoload = 'no'
+
+" NERD Tree
+
+map <c-n> :NERDTreeToggle<CR>
+let NERDTreeIgnore = ['\.swp$']
+
 " syntastic
 
 let g:syntastic_check_on_open=1
-let g:syntastic_quiet_warnings=1
+let g:syntastic_quiet_quiet_messages = {'level': 'warnings'}
 let g:syntastic_stl_format = '[E:%fe]'
 let g:syntastic_error_symbol='✗'
 let g:syntastic_warning_symbol='⚠'
+let g:syntastic_html_tidy_ignore_errors = [
+    \"trimming empty <i>",
+    \"trimming empty <span>",
+    \"<input> proprietary attribute \"autocomplete\"",
+    \"proprietary attribute \"role\"",
+    \"proprietary attribute \"hidden\"",
+    \"proprietary attribute \"ng-",
+\]
+
+"let g:loaded_syntastic_javascript_jshint_checker
+
+function! s:find_jshintrc(dir)
+    let l:found = globpath(a:dir, '.jshintrc')
+    if filereadable(l:found)
+        return l:found
+    endif
+
+    let l:parent = fnamemodify(a:dir, ':h')
+    if l:parent != a:dir
+        return s:find_jshintrc(l:parent)
+    endif
+
+    return "~/.jshintrc"
+endfunction
+
+function! UpdateJsHintConf()
+    let l:dir = expand('%:p:h')
+    let l:jshintrc = s:find_jshintrc(l:dir)
+    let g:syntastic_javascript_jshint_conf = l:jshintrc
+endfunction
+
+au BufEnter * call UpdateJsHintConf()
+let g:syntastic_always_populate_loc_list=1
 
 " status line
 
@@ -138,7 +196,7 @@ set statusline=
 set statusline+=%m
 set statusline+=%f\                    " path
 set statusline+=%=%#error#
-set statusline+=%{SyntasticStatuslineFlag()}
+"set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*[%l:%c]            " line and column
 
 " ycm
@@ -160,19 +218,9 @@ let g:gitgutter_eager = 0
 map <C-J> <leader><leader>j
 map <C-K> <leader><leader>k
 
-nnoremap <c-w>< 10<c-w><
-nnoremap <c-w>> 10<c-w>>
-nnoremap <c-w>- 10<c-w>-
-nnoremap <c-w>+ 10<c-w>+
-
 " xml
 
 let xml_use_xhtml = 1
-
-" easy motion
-
-map <C-J> <leader><leader>j
-map <C-K> <leader><leader>k
 
 " ultisnips
 "let g:UltiSnipsExpandTrigger="<c-space>"
@@ -188,18 +236,15 @@ let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 "let g:ctrlp_working_path_mode = 'c'
 set wildignore+=*/build/*,*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
-
-"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_root_markers = ['.ctrlp_root']
-let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn|xcodeproj)$',
-  \ 'file': '\v\.(exe|so|dll)$',
-  \ 'link': 'some_bad_symbolic_links',
-  \ }
+let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)|node_modules|test_out$'
+let g:ctrlp_max_depth = 1000
+let g:ctrlp_max_files = 0
 
 " ctags convenience funcs
 
-set tags=./tags;/
+set tags=./tags,tags;$HOME
+"set tags=./tags;/
 "nnoremap <A-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 let g:easytags_updatetime_min = 2000
