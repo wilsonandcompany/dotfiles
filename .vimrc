@@ -85,6 +85,8 @@ nnoremap k gk
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " my stuff
 
+set gfn=Menlo\ Regular:h13
+
 if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
   set t_Co=256
 endif
@@ -118,11 +120,15 @@ nnoremap Q <nop>
 nnoremap <C-W><C-C> <nop>
 nnoremap <C-W>c <nop>
 
-map <c-n> :NERDTreeToggle<CR>
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 set clipboard=unnamed
 
 let g:ackprg = 'ag --nogroup --ignore-case --literal --all-text --follow --column'
+
+" nerdtree
+
+let NERDTreeIgnore = ['\.pyc$', '\.meta$']
+map <c-n> :NERDTreeToggle<CR>
 
 " syntastic
 
@@ -189,11 +195,10 @@ let g:ctrlp_cmd = 'CtrlP'
 "let g:ctrlp_working_path_mode = 'c'
 set wildignore+=*/build/*,*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
-"let g:ctrlp_custom_ignore = '\v[\/]\.(git|hg|svn)$'
 let g:ctrlp_root_markers = ['.ctrlp_root']
 let g:ctrlp_custom_ignore = {
   \ 'dir':  '\v[\/]\.(git|hg|svn|xcodeproj)$',
-  \ 'file': '\v\.(exe|so|dll)$',
+  \ 'file': '\v\.(exe|so|dll|meta)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
 
