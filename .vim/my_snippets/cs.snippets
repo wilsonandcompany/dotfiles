@@ -1,0 +1,38 @@
+#######################################################################
+#                      C# Snippets for UltiSnips                      #
+#######################################################################
+
+snippet func "void function(params) {}" b
+${1:void} ${2:Name}($3)
+{
+	$0
+}
+
+endsnippet
+
+snippet c "public class MyClass" b
+using UnityEngine;
+using System.Collections;
+
+public class ${1:Name} : MonoBehaviour
+{
+	$2
+    void Awake()
+    {
+    }
+
+    void Start()
+    {
+    }
+
+    void Update()
+    {
+    }
+	$0
+}
+
+endsnippet
+
+snippet log
+Debug.Log($0);
+endsnippet

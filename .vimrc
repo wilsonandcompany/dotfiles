@@ -16,9 +16,12 @@ Bundle 'SirVer/ultisnips'
 Bundle 'scrooloose/syntastic.git'
 Bundle 'scrooloose/nerdtree.git'
 "Bundle 'tpope/vim-fugitive.git'
+"Bundle 'tpope/vim-markdown.git'
+Bundle 'tpope/vim-rails.git'
+Bundle 'tpope/vim-surround.git'
+Bundle 'tpope/vim-liquid.git'
 Bundle 'kchmck/vim-coffee-script.git'
 Bundle 'git://github.com/pangloss/vim-javascript.git'
-Bundle 'tpope/vim-rails.git'
 Bundle 'mileszs/ack.vim.git'
 Bundle 'Lokaltog/vim-easymotion.git'
 Bundle 'xolox/vim-easytags.git'
@@ -29,8 +32,7 @@ Bundle 'Chiel92/vim-autoformat'
 Bundle 'elzr/vim-json.git'
 Bundle 'othree/xml.vim'
 Bundle 'scrooloose/nerdcommenter.git'
-Bundle 'mhinz/vim-startify.git'
-Bundle 'tpope/vim-surround.git'
+"Bundle 'mhinz/vim-startify.git'
 Bundle 'othree/javascript-libraries-syntax.vim.git'
 
 filetype plugin indent on               " required by vundle
@@ -58,6 +60,7 @@ autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
 set encoding=utf-8
 set scrolloff=3                   " minimal number of screen lines above/below cursor
 set autoindent
+set autochdir
 
 set showmode                      " show current mode
 set showcmd                       " show command last line bottom right
@@ -144,7 +147,7 @@ let g:used_javascript_libs = 'jquery,angularjs,jasmine'
 " session
 
 let g:session_autosave = 'no'
-let g:session_autoload = 'no'
+let g:session_autoload = 'yes'
 
 " NERD Tree
 
@@ -203,9 +206,10 @@ set statusline+=%*[%l:%c]            " line and column
 
 " ycm
 
-let g:ycm_use_ultisnips_completer = 0
+"let g:ycm_use_ultisnips_completer = 0
 let g:ycm_key_list_select_completion = ['<C-J>']
 let g:ycm_key_list_previous_completion = ['<C-K>']
+set completeopt-=preview
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_confirm_extra_conf = 0
@@ -225,11 +229,12 @@ map <C-K> <leader><leader>k
 let xml_use_xhtml = 1
 
 " ultisnips
-"let g:UltiSnipsExpandTrigger="<c-space>"
-let g:UltiSnipsJumpForwardTrigger="<c-j>"
-let g:UltiSnipsJumpBackwardTrigger="<c-k>"
+let g:UltiSnipsExpandTrigger="<tab>"
+let g:UltiSnipsJumpForwardTrigger="<tab>"
+let g:UltiSnipsJumpBackwardTrigger="<s-tab>"
 let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
-let g:UltiSnipsSnippetsDir="~/.vim/bundle/ultisnips/Ultisnips"
+"let g:UltiSnipsSnippetsDir="~/.vim/bundle/ultisnips/Ultisnips"
+let g:UltiSnipsSnippetsDir="~/.vim/my_snippets"
 set runtimepath+=~/.vim/bundle/ultisnips/
 
 " ctrl p navigation
@@ -241,8 +246,8 @@ set wildignore+=*/build/*,*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
 let g:ctrlp_root_markers = ['.ctrlp_root']
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn|xcodeproj)$',
-  \ 'file': '(\v\.(exe|so|dll|meta)|node_modules|test_out)$',
+  \ 'dir':  '\v[\/]\.(git|hg|svn|xcodeproj)|_site$',
+  \ 'file': '\v\.(exe|so|dll|meta)|node_modules|test_out$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
 let g:ctrlp_max_depth = 1000
