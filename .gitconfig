@@ -24,14 +24,17 @@
   aa = add --all
   ap = add --patch
   amend = commit --amend
+  c = commit
   cam = commit -am
   cm = commit -m
   undo = reset --soft HEAD@{1}
   l = "!git log --pretty='tformat:%C(yellow)%h{%C(green)%ar{%C(bold blue)%an{%C(red)%d%C(reset) %s' $* | column -t -s '{' | less -FXRS"
   lg = log --graph --pretty=format:'%Cred%h%Creset %an -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
+  ctags = !.git/hooks/ctags
+  cut = checkout -b
 
 [credential]
-  helper = cache --timeout=3600
+	helper = cache --timeout=216000
 
 [push]
   default = simple
@@ -63,3 +66,5 @@
   added = green
   changed = red
   untracked = cyan
+[init]
+	templatedir = ~/.git_template
