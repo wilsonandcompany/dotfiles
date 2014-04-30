@@ -9,12 +9,12 @@ set runtimepath+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-Bundle 'Valloric/YouCompleteMe'
+"Bundle 'Valloric/YouCompleteMe'
 Bundle 'kien/ctrlp.vim'
 Bundle 'SirVer/ultisnips'
 "Bundle 'airblade/vim-gitgutter.git'
-Bundle 'scrooloose/syntastic.git'
-Bundle 'scrooloose/nerdtree.git'
+"Bundle 'scrooloose/syntastic.git'
+"Bundle 'scrooloose/nerdtree.git'
 "Bundle 'tpope/vim-fugitive.git'
 "Bundle 'tpope/vim-markdown.git'
 Bundle 'tpope/vim-rails.git'
@@ -34,6 +34,8 @@ Bundle 'othree/xml.vim'
 Bundle 'scrooloose/nerdcommenter.git'
 "Bundle 'mhinz/vim-startify.git'
 Bundle 'othree/javascript-libraries-syntax.vim.git'
+Bundle 'marijnh/tern_for_vim.git'
+Bundle 'majutsushi/tagbar.git'
 
 filetype plugin indent on               " required by vundle
 
@@ -144,6 +146,9 @@ let g:ackprg = 'ag --nogroup --ignore-case --literal --all-text --follow --colum
 
 let g:used_javascript_libs = 'jquery,angularjs,jasmine'
 
+" tag bar
+nmap <F8> :TagbarOpenAutoClose<CR>
+
 " session
 
 let g:session_autosave = 'no'
@@ -151,6 +156,7 @@ let g:session_autoload = 'yes'
 
 " NERD Tree
 
+map <c-b> :NERDTreeFind<CR>
 map <c-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.swp$','\.pyc$', '\.meta$']
 
@@ -214,6 +220,8 @@ let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_confirm_extra_conf = 0
 
+set completeopt-=preview
+
 " git gutter
 
 let g:gitgutter_realtime = 0
@@ -223,6 +231,7 @@ let g:gitgutter_eager = 0
 
 map <C-J> <leader><leader>j
 map <C-K> <leader><leader>k
+let g:EasyMotion_keys = 'asdfghjkl;'
 
 " xml
 
