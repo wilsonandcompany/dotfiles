@@ -2,5 +2,7 @@
 *.swo
 *.swm
 *.swn
+.DS_Store
 .vim/bundle/
 .vim/sessions/
+.ctrlp_root

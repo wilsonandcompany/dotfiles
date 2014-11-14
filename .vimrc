@@ -9,12 +9,12 @@ set runtimepath+=~/.vim/bundle/vundle/
 call vundle#rc()
 
 Bundle 'gmarik/vundle'
-"Bundle 'Valloric/YouCompleteMe'
+Bundle 'Valloric/YouCompleteMe'
 Bundle 'kien/ctrlp.vim'
 Bundle 'SirVer/ultisnips'
 "Bundle 'airblade/vim-gitgutter.git'
-"Bundle 'scrooloose/syntastic.git'
-"Bundle 'scrooloose/nerdtree.git'
+Bundle 'scrooloose/syntastic.git'
+Bundle 'scrooloose/nerdtree.git'
 "Bundle 'tpope/vim-fugitive.git'
 "Bundle 'tpope/vim-markdown.git'
 Bundle 'tpope/vim-rails.git'
@@ -24,7 +24,7 @@ Bundle 'kchmck/vim-coffee-script.git'
 Bundle 'git://github.com/pangloss/vim-javascript.git'
 Bundle 'mileszs/ack.vim.git'
 Bundle 'Lokaltog/vim-easymotion.git'
-Bundle 'xolox/vim-easytags.git'
+"Bundle 'xolox/vim-easytags.git'
 Bundle 'xolox/vim-session.git'
 Bundle 'xolox/vim-misc.git'
 "Bundle 'altercation/vim-colors-solarized.git'
@@ -55,9 +55,13 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab                     " turn tabs into spaces
 
-autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+augroup file_type_styling
+    autocmd!
+    autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+    autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4
+augroup END
 
 set encoding=utf-8
 set scrolloff=3                   " minimal number of screen lines above/below cursor
@@ -96,7 +100,7 @@ nnoremap k gk
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " my stuff
 
-set gfn=Menlo\ Regular:h13
+set gfn=Menlo\ Regular:h15
 
 if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
   set t_Co=256
@@ -116,8 +120,9 @@ command! Respace %s!\s\+$!
 set number                        " line numbers
 set splitright                    " new splits are opened on the top
 set splitbelow                    " new splits are opened on the bottom
-"set list                          " display unprinable characters with ^
+set list                          " display unprinable characters with ^
 set listchars:trail:·             " show trailing spaces with symbol
+"set listchars=tab:>-,trail:~,extends:>,precedes:<
 set showbreak=↪                   " show line breaks
 set autoread                      " auto read files changed outside of vim
 
@@ -135,7 +140,7 @@ nnoremap <c-w>> 15<c-w>>
 nnoremap <c-w>- 10<c-w>-
 nnoremap <c-w>+ 10<c-w>+
 
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+autocmd BufNewFile,BufRead *.phtml set filetype=phtml
 set clipboard=unnamed
 
 let g:ackprg = 'ag --nogroup --ignore-case --literal --all-text --follow --column'
@@ -147,7 +152,7 @@ let g:ackprg = 'ag --nogroup --ignore-case --literal --all-text --follow --colum
 let g:used_javascript_libs = 'jquery,angularjs,jasmine'
 
 " tag bar
-nmap <F8> :TagbarOpenAutoClose<CR>
+nmap <c-[> :TagbarOpenAutoClose<CR>
 
 " session
 
@@ -156,6 +161,7 @@ let g:session_autoload = 'yes'
 
 " NERD Tree
 
+let NERDTreeShowBookmarks = 1
 map <c-b> :NERDTreeFind<CR>
 map <c-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.swp$','\.pyc$', '\.meta$']
@@ -177,28 +183,6 @@ let g:syntastic_html_tidy_ignore_errors = [
 \]
 
 "let g:loaded_syntastic_javascript_jshint_checker
-
-function! s:find_jshintrc(dir)
-    let l:found = globpath(a:dir, '.jshintrc')
-    if filereadable(l:found)
-        return l:found
-    endif
-
-    let l:parent = fnamemodify(a:dir, ':h')
-    if l:parent != a:dir
-        return s:find_jshintrc(l:parent)
-    endif
-
-    return "~/.jshintrc"
-endfunction
-
-function! UpdateJsHintConf()
-    let l:dir = expand('%:p:h')
-    let l:jshintrc = s:find_jshintrc(l:dir)
-    let g:syntastic_javascript_jshint_conf = l:jshintrc
-endfunction
-
-au BufEnter * call UpdateJsHintConf()
 let g:syntastic_always_populate_loc_list=1
 
 " status line
@@ -255,8 +239,8 @@ set wildignore+=*/build/*,*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
 
 let g:ctrlp_root_markers = ['.ctrlp_root']
 let g:ctrlp_custom_ignore = {
-  \ 'dir':  '\v[\/]\.(git|hg|svn|xcodeproj)|_site$',
-  \ 'file': '\v\.(exe|so|dll|meta)|node_modules|test_out$',
+  \ 'dir': '\v[\/]\.(git|hg|svn)|xcodeproj|_site|node_modules|test_out|iStockTestSuite|images|software$',
+  \ 'file': '\v\.(exe|so|dll|meta|jpg|png|gif)$',
   \ 'link': 'some_bad_symbolic_links',
   \ }
 let g:ctrlp_max_depth = 1000
@@ -264,10 +248,11 @@ let g:ctrlp_max_files = 0
 
 " ctags convenience funcs
 
-set tags=./tags,tags;$HOME
+"set tags=./tags,tags;$HOME
+set tags=./tags;/,tags;/
 "set tags=./tags;/
 "nnoremap <A-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-nnoremap <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+nnoremap <leader>d :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 let g:easytags_updatetime_min = 2000
 
 " alternate
@@ -275,9 +260,75 @@ let g:easytags_updatetime_min = 2000
 "autocmd FileType objc let g:alternateExtensions_h = "m"
 "autocmd FileType objc let g:alternateExtensions_m = "h"
 
+function! s:find_jshintrc(dir)
+    let l:found = globpath(a:dir, '.jshintrc')
+    if filereadable(l:found)
+        return l:found
+    endif
+
+    let l:parent = fnamemodify(a:dir, ':h')
+    if l:parent != a:dir
+        return s:find_jshintrc(l:parent)
+    endif
+
+    return "~/.jshintrc"
+endfunction
+
+function! UpdateJsHintConf()
+    let l:dir = expand('%:p:h')
+    let l:jshintrc = s:find_jshintrc(l:dir)
+    let g:syntastic_javascript_jshint_conf = l:jshintrc
+endfunction
+
+au BufEnter * call UpdateJsHintConf()
+
+function! DeleteHiddenBuffers()
+    let tpbl=[]
+    call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+    for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+        silent execute 'bwipeout' buf
+    endfor
+endfunction
+
+nnoremap <C-\> :call MaximizeToggle()<CR>
+
+function! MaximizeToggle()
+  if exists("s:maximize_session")
+    unlet s:maximize_session
+    wincmd =
+  else
+    let s:maximize_session = 1
+    vertical res
+  endif
+endfunction
+
 " auto reloading of vimrc
 
-augroup reload_vimrc " {
+augroup reload_vimrc
   autocmd!
   autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
+augroup END
+
+" Highlight all instances of word under cursor, when idle.
+" Useful when studying strange source code.
+" Type z/ to toggle highlighting on/off.
+nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+function! AutoHighlightToggle()
+  let @/ = ''
+  if exists('#auto_highlight')
+    au! auto_highlight
+    augroup! auto_highlight
+    setl updatetime=0
+    echo 'Highlight current word: off'
+    return 0
+  else
+    augroup auto_highlight
+      au!
+      au CursorHold * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
+    augroup end
+    setl updatetime=0
+    echo 'Highlight current word: ON'
+    return 1
+  endif
+endfunction
+call AutoHighlightToggle()
