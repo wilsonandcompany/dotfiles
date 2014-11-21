@@ -2,21 +2,55 @@
 #                      C# Snippets for UltiSnips                      #
 #######################################################################
 
-snippet func "void function(params) {}" b
-${1:void} ${2:Name}($3)
+snippet awake "Awake (Unity)" bs
+public void Awake()
 {
-	$0
+$0
 }
-
 endsnippet
 
-snippet c "public class MyClass" b
+snippet update "Awake (Unity)" bs
+public void Update()
+{
+$0
+}
+endsnippet
+
+snippet public_function "public void function(params) {}" bs
+public ${1:void} ${2:Name}($3)
+{
+$0
+}
+endsnippet
+
+snippet private_function "private void function(params) {}" bs
+private ${1:void} ${2:Name}($3)
+{
+$0
+}
+endsnippet
+
+snippet mono_behavior "public class MyMonoBehavior" bs
 using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class ${1:Name} : MonoBehaviour
 {
-	$2
+    // Constant Fields
+    // Fields
+    // Constructors
+    // Finalizers (Destructors)
+    // Delegates
+    // Events
+    // Enums
+    // Interfaces
+    // Properties
+    // Indexers
+    // Methods
+    // Structs
+    // Classes
+
     void Awake()
     {
     }
@@ -28,9 +62,23 @@ public class ${1:Name} : MonoBehaviour
     void Update()
     {
     }
-	$0
 }
+endsnippet
 
+snippet scriptable_object "public class MyScriptableObject" bs
+using UnityEngine;
+using UnityEditor;
+using System.Collections;
+using System.Collections.Generic;
+
+public class ${1:Name} : ScriptableObject
+{
+    [MenuItem("Overlord/Create Asset/${2:$1}")]
+    public static void CreateAsset ()
+    {
+        ScriptableObjectUtility.CreateAsset<$1>();
+    }
+}
 endsnippet
 
 snippet log

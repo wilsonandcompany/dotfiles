@@ -55,9 +55,13 @@ set shiftwidth=4
 set softtabstop=4
 set expandtab                     " turn tabs into spaces
 
-autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
-autocmd FileType html setlocal shiftwidth=2 tabstop=2 softtabstop=2
+augroup file_type_styling
+    autocmd!
+    autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+    autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4
+augroup END
 
 set encoding=utf-8
 set scrolloff=3                   " minimal number of screen lines above/below cursor
@@ -116,8 +120,9 @@ command! Respace %s!\s\+$!
 set number                        " line numbers
 set splitright                    " new splits are opened on the top
 set splitbelow                    " new splits are opened on the bottom
-"set list                          " display unprinable characters with ^
+set list                          " display unprinable characters with ^
 set listchars:trail:·             " show trailing spaces with symbol
+"set listchars=tab:>-,trail:~,extends:>,precedes:<
 set showbreak=↪                   " show line breaks
 set autoread                      " auto read files changed outside of vim
 
@@ -147,7 +152,7 @@ let g:ackprg = 'ag --nogroup --ignore-case --literal --all-text --follow --colum
 let g:used_javascript_libs = 'jquery,angularjs,jasmine'
 
 " tag bar
-nmap <F8> :TagbarOpenAutoClose<CR>
+"nmap <c-[> :TagbarOpenAutoClose<CR>
 
 " session
 
@@ -156,6 +161,7 @@ let g:session_autoload = 'yes'
 
 " NERD Tree
 
+let NERDTreeShowBookmarks = 1
 map <c-b> :NERDTreeFind<CR>
 map <c-n> :NERDTreeToggle<CR>
 let NERDTreeIgnore = ['\.swp$','\.pyc$', '\.meta$']
@@ -177,28 +183,6 @@ let g:syntastic_html_tidy_ignore_errors = [
 \]
 
 "let g:loaded_syntastic_javascript_jshint_checker
-
-function! s:find_jshintrc(dir)
-    let l:found = globpath(a:dir, '.jshintrc')
-    if filereadable(l:found)
-        return l:found
-    endif
-
-    let l:parent = fnamemodify(a:dir, ':h')
-    if l:parent != a:dir
-        return s:find_jshintrc(l:parent)
-    endif
-
-    return "~/.jshintrc"
-endfunction
-
-function! UpdateJsHintConf()
-    let l:dir = expand('%:p:h')
-    let l:jshintrc = s:find_jshintrc(l:dir)
-    let g:syntastic_javascript_jshint_conf = l:jshintrc
-endfunction
-
-au BufEnter * call UpdateJsHintConf()
 let g:syntastic_always_populate_loc_list=1
 
 " status line
@@ -277,7 +261,30 @@ let g:easytags_updatetime_min = 2000
 
 " auto reloading of vimrc
 
-augroup reload_vimrc " {
+augroup reload_vimrc
   autocmd!
   autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END " }
+augroup END
+
+" Highlight all instances of word under cursor, when idle.
+" Useful when studying strange source code.
+" Type z/ to toggle highlighting on/off.
+nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
+function! AutoHighlightToggle()
+  let @/ = ''
+  if exists('#auto_highlight')
+    au! auto_highlight
+    augroup! auto_highlight
+    setl updatetime=0
+    echo 'Highlight current word: off'
+    return 0
+  else
+    augroup auto_highlight
+      au!
+      au CursorHold * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
+    augroup end
+    setl updatetime=0
+    echo 'Highlight current word: ON'
+    return 1
+  endif
+endfunction

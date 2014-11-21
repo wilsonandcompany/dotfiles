@@ -12,7 +12,6 @@
 
 [alias]
   conflicts = diff --name-only --diff-filter=U
-  ll = log --pretty=format:"%C(yellow)%h\\ %Cblue[%cn]\\ %Cgreen<%ad>\\ %n%Creset%s%n" --decorate
   pushcurrent = "!f() { git push ${1:-origin} `git symbolic-ref HEAD`; }; f"
   pullcurrent = "!f() { git pull -u ${1:-origin} `git symbolic-ref HEAD`; }; f"
   unpushed = !"PROJ_BRANCH=$(git symbolic-ref HEAD | sed 's|refs/heads/||') && git log origin/$PROJ_BRANCH..HEAD"
@@ -27,7 +26,9 @@
   c = commit
   cam = commit -am
   cm = commit -m
-  undo = reset --soft HEAD@{1}
+  undo = reset --soft HEAD~
+  ll = log --first-parent
+  ;ll = log --pretty=format:"%C(yellow)%h\\ %Cblue[%cn]\\ %Cgreen<%ad>\\ %n%Creset%s%n" --decorate
   l = "!git log --pretty='tformat:%C(yellow)%h{%C(green)%ar{%C(bold blue)%an{%C(red)%d%C(reset) %s' $* | column -t -s '{' | less -FXRS"
   lg = log --graph --pretty=format:'%Cred%h%Creset %an -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative
   ctags = !.git/hooks/ctags
@@ -47,6 +48,7 @@
 [diff]
   renames = copies
   mnemonicprefix = true
+  renameLimit = 2000
 
 [color]
   ui = true
@@ -68,3 +70,5 @@
   untracked = cyan
 [init]
 	templatedir = ~/.git_template
+[rerere]
+	enabled = true
