@@ -24,7 +24,7 @@ Bundle 'kchmck/vim-coffee-script.git'
 Bundle 'git://github.com/pangloss/vim-javascript.git'
 Bundle 'mileszs/ack.vim.git'
 Bundle 'Lokaltog/vim-easymotion.git'
-"Bundle 'xolox/vim-easytags.git'
+Bundle 'xolox/vim-easytags.git'
 Bundle 'xolox/vim-session.git'
 Bundle 'xolox/vim-misc.git'
 "Bundle 'altercation/vim-colors-solarized.git'
@@ -36,6 +36,7 @@ Bundle 'scrooloose/nerdcommenter.git'
 Bundle 'othree/javascript-libraries-syntax.vim.git'
 Bundle 'marijnh/tern_for_vim.git'
 Bundle 'majutsushi/tagbar.git'
+Bundle 'shawncplus/phpcomplete.vim'
 
 filetype plugin indent on               " required by vundle
 
@@ -100,7 +101,7 @@ nnoremap k gk
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " my stuff
 
-set gfn=Menlo\ Regular:h15
+set gfn=Menlo\ Regular:h16
 
 if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
   set t_Co=256
@@ -132,6 +133,7 @@ nnoremap ^ 0
 
 set nofoldenable
 nnoremap Q <nop>
+nnoremap K <nop>
 nnoremap <C-W><C-C> <nop>
 nnoremap <C-W>c <nop>
 
@@ -152,7 +154,7 @@ let g:ackprg = 'ag --nogroup --ignore-case --literal --all-text --follow --colum
 let g:used_javascript_libs = 'jquery,angularjs,jasmine'
 
 " tag bar
-nmap <c-[> :TagbarOpenAutoClose<CR>
+"nnoremap <C-[> :TagbarOpenAutoClose<CR>
 
 " session
 
@@ -194,6 +196,16 @@ set statusline+=%=%#error#
 "set statusline+=%{SyntasticStatuslineFlag()}
 set statusline+=%*[%l:%c]            " line and column
 
+" vim-javascript
+
+let g:javascript_conceal_function   = "ƒ"
+let g:javascript_conceal_null       = "ø"
+let g:javascript_conceal_this       = "@"
+"let g:javascript_conceal_return     = "⇚"
+"let g:javascript_conceal_undefined  = "¿"
+"let g:javascript_conceal_NaN        = "ℕ"
+"let g:javascript_conceal_prototype  = "¶"
+
 " ycm
 
 "let g:ycm_use_ultisnips_completer = 0
@@ -203,8 +215,6 @@ set completeopt-=preview
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_confirm_extra_conf = 0
-
-set completeopt-=preview
 
 " git gutter
 
@@ -253,7 +263,11 @@ set tags=./tags;/,tags;/
 "set tags=./tags;/
 "nnoremap <A-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap <leader>d :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
+
+" easytags
+
 let g:easytags_updatetime_min = 2000
+let g:easytags_auto_highlight = 0
 
 " alternate
 
@@ -331,4 +345,3 @@ function! AutoHighlightToggle()
     return 1
   endif
 endfunction
-call AutoHighlightToggle()

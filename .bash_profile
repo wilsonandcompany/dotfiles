@@ -1,7 +1,7 @@
-[[ -f ~/.bashrc ]] && . ~/.bashrc
-[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
-[[ -f ~/.git-completion.bash ]] && . ~/.git-completion.bash
-[[ -f ~/.git-prompt.sh ]] && . ~/.git-prompt.sh
+#[[ -f ~/.bashrc ]] && . ~/.bashrc
+#[[ -f ~/.bash_aliases ]] && . ~/.bash_aliases
+#[[ -f ~/.git-completion.bash ]] && . ~/.git-completion.bash
+#[[ -f ~/.git-prompt.sh ]] && . ~/.git-prompt.sh
 
 export CLICOLOR=1
 export LSCOLORS=ExFxCxDxBxegedabagacad
