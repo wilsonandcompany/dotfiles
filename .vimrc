@@ -15,13 +15,13 @@ Bundle 'SirVer/ultisnips'
 "Bundle 'airblade/vim-gitgutter.git'
 Bundle 'scrooloose/syntastic.git'
 Bundle 'scrooloose/nerdtree.git'
-"Bundle 'tpope/vim-fugitive.git'
+Bundle 'tpope/vim-fugitive.git'
 "Bundle 'tpope/vim-markdown.git'
-Bundle 'tpope/vim-rails.git'
+"Bundle 'tpope/vim-rails.git'
 Bundle 'tpope/vim-surround.git'
-Bundle 'tpope/vim-liquid.git'
-Bundle 'kchmck/vim-coffee-script.git'
-Bundle 'git://github.com/pangloss/vim-javascript.git'
+"Bundle 'tpope/vim-liquid.git'
+"Bundle 'kchmck/vim-coffee-script.git'
+"Bundle 'git://github.com/pangloss/vim-javascript.git'
 Bundle 'mileszs/ack.vim.git'
 Bundle 'Lokaltog/vim-easymotion.git'
 Bundle 'xolox/vim-easytags.git'
@@ -29,13 +29,15 @@ Bundle 'xolox/vim-session.git'
 Bundle 'xolox/vim-misc.git'
 "Bundle 'altercation/vim-colors-solarized.git'
 Bundle 'Chiel92/vim-autoformat'
-Bundle 'elzr/vim-json.git'
-Bundle 'othree/xml.vim'
+"Bundle 'elzr/vim-json.git'
+"Bundle 'othree/xml.vim'
 Bundle 'scrooloose/nerdcommenter.git'
 "Bundle 'mhinz/vim-startify.git'
-Bundle 'othree/javascript-libraries-syntax.vim.git'
-Bundle 'marijnh/tern_for_vim.git'
+"Bundle 'othree/javascript-libraries-syntax.vim.git'
+"Bundle 'marijnh/tern_for_vim.git'
 Bundle 'majutsushi/tagbar.git'
+Bundle 'vim-scripts/greplace.vim.git'
+"Bundle 'bling/vim-airline'
 
 filetype plugin indent on               " required by vundle
 
@@ -90,9 +92,6 @@ set showmatch                     " briefly move the cursor to matching cursor
 set incsearch                     " highlights while typing search
 set hlsearch                      " highlights all search matches
 
-" clear search highlight
-nnoremap <leader><Space> :noh<cr>
-
 " sane movement over line wrapped lines
 nnoremap j gj
 nnoremap k gk
@@ -100,7 +99,8 @@ nnoremap k gk
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " my stuff
 
-set gfn=Menlo\ Regular:h13
+nnoremap <leader><space> :noh<cr>
+set gfn=Menlo\ Regular:h14
 
 if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
   set t_Co=256
@@ -131,6 +131,7 @@ nnoremap 0 ^
 nnoremap ^ 0
 
 set nofoldenable
+nnoremap K <nop>
 nnoremap Q <nop>
 nnoremap <C-W><C-C> <nop>
 nnoremap <C-W>c <nop>
@@ -149,15 +150,16 @@ let g:ackprg = 'ag --nogroup --ignore-case --literal --all-text --follow --colum
 
 " javascript-libraries-syntax
 
-let g:used_javascript_libs = 'jquery,angularjs,jasmine'
+"let g:used_javascript_libs = 'jquery,angularjs,jasmine'
 
 " tag bar
-"nmap <c-[> :TagbarOpenAutoClose<CR>
+nmap <c-[> :TagbarOpenAutoClose<CR>
 
 " session
 
 let g:session_autosave = 'no'
 let g:session_autoload = 'yes'
+nnoremap <f5> :OpenSession<cr>
 
 " NERD Tree
 
@@ -196,10 +198,8 @@ set statusline+=%*[%l:%c]            " line and column
 
 " ycm
 
-"let g:ycm_use_ultisnips_completer = 0
 let g:ycm_key_list_select_completion = ['<C-J>']
 let g:ycm_key_list_previous_completion = ['<C-K>']
-set completeopt-=preview
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_confirm_extra_conf = 0
@@ -235,7 +235,7 @@ set runtimepath+=~/.vim/bundle/ultisnips/
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 "let g:ctrlp_working_path_mode = 'c'
-set wildignore+=*/build/*,*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*/build/*,*/tmp/*,*.so,*.swp,*.zip,*.exe,*.so,*.dll,*.meta,*.png,*.wav
 
 let g:ctrlp_root_markers = ['.ctrlp_root']
 let g:ctrlp_custom_ignore = {
@@ -248,11 +248,10 @@ let g:ctrlp_max_files = 0
 
 " ctags convenience funcs
 
-set tags=./tags,tags;$HOME
+"set tags=./tags,tags;$HOME
 "set tags=./tags;/
-"nnoremap <A-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
-nnoremap <C-\> :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 let g:easytags_updatetime_min = 2000
+let g:easytags_async = 1
 
 " alternate
 
@@ -266,9 +265,20 @@ augroup reload_vimrc
   autocmd BufWritePost $MYVIMRC source $MYVIMRC
 augroup END
 
+" max/min windows
+nnoremap <C-\> :call MaximizeToggle()<CR>
+
+function! MaximizeToggle()
+  if exists("s:maximize_session")
+    unlet s:maximize_session
+    wincmd =
+  else
+    let s:maximize_session = 1
+    vertical res
+  endif
+endfunction
+
 " Highlight all instances of word under cursor, when idle.
-" Useful when studying strange source code.
-" Type z/ to toggle highlighting on/off.
 nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
 function! AutoHighlightToggle()
   let @/ = ''
@@ -287,4 +297,14 @@ function! AutoHighlightToggle()
     echo 'Highlight current word: ON'
     return 1
   endif
+endfunction
+
+" Delete hidden buffers
+function! DeleteHiddenBuffers()
+    let tpbl=[]
+    call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
+    for buf in filter(range(1, bufnr('$')), 'bufexists(v:val) && index(tpbl, v:val)==-1')
+        silent execute 'bwipeout' buf
+    endfor
+    echo 'OK'
 endfunction
