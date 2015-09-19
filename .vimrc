@@ -46,6 +46,7 @@ filetype plugin indent on               " required by vundle
 
 " easily quit insert mode
 inoremap jj <ESC>
+inoremap jf <ESC>
 "let mapleader = ","
 
 set nocompatible
