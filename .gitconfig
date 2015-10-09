@@ -20,10 +20,9 @@
   s = status --short --branch
   co = checkout
   a = add
-  aa = add --all
+  aa = add -A :/
   ap = add --patch
   amend = commit --amend
-  pick = cherry-pick
   c = commit
   cam = commit -am
   cm = commit -m

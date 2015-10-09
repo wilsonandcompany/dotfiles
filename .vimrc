@@ -8,35 +8,32 @@ filetype off                            " required by vundle
 set runtimepath+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-Bundle 'gmarik/vundle'
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/syntastic.git'
 Bundle 'kien/ctrlp.vim'
 Bundle 'SirVer/ultisnips'
-"Bundle 'airblade/vim-gitgutter.git'
-Bundle 'scrooloose/syntastic.git'
 Bundle 'scrooloose/nerdtree.git'
-"Bundle 'tpope/vim-fugitive.git'
-"Bundle 'tpope/vim-markdown.git'
-Bundle 'tpope/vim-rails.git'
 Bundle 'tpope/vim-surround.git'
-Bundle 'tpope/vim-liquid.git'
-Bundle 'kchmck/vim-coffee-script.git'
-Bundle 'git://github.com/pangloss/vim-javascript.git'
 Bundle 'mileszs/ack.vim.git'
 Bundle 'Lokaltog/vim-easymotion.git'
 Bundle 'xolox/vim-easytags.git'
 Bundle 'xolox/vim-session.git'
 Bundle 'xolox/vim-misc.git'
-"Bundle 'altercation/vim-colors-solarized.git'
-Bundle 'Chiel92/vim-autoformat'
-Bundle 'elzr/vim-json.git'
-Bundle 'othree/xml.vim'
 Bundle 'scrooloose/nerdcommenter.git'
-"Bundle 'mhinz/vim-startify.git'
-Bundle 'othree/javascript-libraries-syntax.vim.git'
-Bundle 'marijnh/tern_for_vim.git'
 Bundle 'majutsushi/tagbar.git'
-Bundle 'shawncplus/phpcomplete.vim'
+Bundle 'vim-scripts/greplace.vim.git'
+Bundle 'bling/vim-airline'
+
+Bundle 'airblade/vim-gitgutter.git'
+Bundle 'tpope/vim-fugitive.git'
+
+Bundle 'elzr/vim-json.git'
+Bundle 'git://github.com/pangloss/vim-javascript.git'
+Bundle 'othree/javascript-libraries-syntax.vim.git'
+"Bundle 'kchmck/vim-coffee-script.git'
+"Bundle 'tpope/vim-liquid.git'
+"Bundle 'tpope/vim-markdown.git'
+"Bundle 'tpope/vim-rails.git'
 
 filetype plugin indent on               " required by vundle
 
@@ -45,6 +42,7 @@ filetype plugin indent on               " required by vundle
 
 " easily quit insert mode
 inoremap jj <ESC>
+inoremap jf <ESC>
 "let mapleader = ","
 
 set nocompatible
@@ -91,9 +89,6 @@ set showmatch                     " briefly move the cursor to matching cursor
 set incsearch                     " highlights while typing search
 set hlsearch                      " highlights all search matches
 
-" clear search highlight
-nnoremap <leader><Space> :noh<cr>
-
 " sane movement over line wrapped lines
 nnoremap j gj
 nnoremap k gk
@@ -101,6 +96,7 @@ nnoremap k gk
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " my stuff
 
+nnoremap <leader><space> :noh<cr>
 set gfn=Menlo\ Regular:h16
 
 if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
@@ -112,8 +108,6 @@ set go-=L
 
 syntax on
 colorscheme molokai
-"set background=dark
-"set scroll=5
 
 command! Vimrc e ~/.vimrc
 command! Respace %s!\s\+$!
@@ -132,6 +126,7 @@ nnoremap 0 ^
 nnoremap ^ 0
 
 set nofoldenable
+nnoremap K <nop>
 nnoremap Q <nop>
 nnoremap K <nop>
 nnoremap <C-W><C-C> <nop>
@@ -147,6 +142,8 @@ set clipboard=unnamed
 
 let g:ackprg = 'ag --nogroup --ignore-case --literal --all-text --follow --column'
 
+set completeopt-=preview
+
 "autocmd BufEnter * silent! lcd %:p:h
 
 " javascript-libraries-syntax
@@ -154,12 +151,13 @@ let g:ackprg = 'ag --nogroup --ignore-case --literal --all-text --follow --colum
 let g:used_javascript_libs = 'jquery,angularjs,jasmine'
 
 " tag bar
-"nnoremap <C-[> :TagbarOpenAutoClose<CR>
+nmap <c-[> :TagbarOpenAutoClose<CR>
 
 " session
 
 let g:session_autosave = 'no'
 let g:session_autoload = 'yes'
+nnoremap <f5> :OpenSession<cr>
 
 " NERD Tree
 
@@ -208,10 +206,8 @@ let g:javascript_conceal_this       = "@"
 
 " ycm
 
-"let g:ycm_use_ultisnips_completer = 0
 let g:ycm_key_list_select_completion = ['<C-J>']
 let g:ycm_key_list_previous_completion = ['<C-K>']
-set completeopt-=preview
 let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_confirm_extra_conf = 0
@@ -240,12 +236,12 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
 let g:UltiSnipsSnippetsDir="~/.vim/my_snippets"
 set runtimepath+=~/.vim/bundle/ultisnips/
 
-" ctrl p navigation
+" ctrl p
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 "let g:ctrlp_working_path_mode = 'c'
-set wildignore+=*/build/*,*/tmp/*,*.so,*.swp,*.zip     " MacOSX/Linux
+set wildignore+=*/build/*,*/tmp/*,*.so,*.swp,*.zip,*.exe,*.so,*.dll,*.meta,*.png,*.wav
 
 let g:ctrlp_root_markers = ['.ctrlp_root']
 let g:ctrlp_custom_ignore = {
@@ -258,10 +254,7 @@ let g:ctrlp_max_files = 0
 
 " ctags convenience funcs
 
-"set tags=./tags,tags;$HOME
 set tags=./tags;/,tags;/
-"set tags=./tags;/
-"nnoremap <A-]> :tab split<CR>:exec("tag ".expand("<cword>"))<CR>
 nnoremap <leader>d :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 
 " easytags
@@ -269,10 +262,21 @@ nnoremap <leader>d :vsp <CR>:exec("tag ".expand("<cword>"))<CR>
 let g:easytags_updatetime_min = 2000
 let g:easytags_auto_highlight = 0
 
-" alternate
+" functions ====================================================================
 
-"autocmd FileType objc let g:alternateExtensions_h = "m"
-"autocmd FileType objc let g:alternateExtensions_m = "h"
+" max/min windows
+
+nnoremap <C-\> :call MaximizeToggle()<CR>
+
+function! MaximizeToggle()
+  if exists("s:maximize_session")
+    unlet s:maximize_session
+    wincmd =
+  else
+    let s:maximize_session = 1
+    vertical res
+  endif
+endfunction
 
 function! s:find_jshintrc(dir)
     let l:found = globpath(a:dir, '.jshintrc')
@@ -296,6 +300,7 @@ endfunction
 
 au BufEnter * call UpdateJsHintConf()
 
+" Delete hidden buffers
 function! DeleteHiddenBuffers()
     let tpbl=[]
     call map(range(1, tabpagenr('$')), 'extend(tpbl, tabpagebuflist(v:val))')
@@ -344,4 +349,10 @@ function! AutoHighlightToggle()
     echo 'Highlight current word: ON'
     return 1
   endif
+    echo 'OK'
+endfunction
+
+" SetTab
+function! SetTab(spaces)
+    set shiftwidth=a:spaces tabstop=a:spaces softtabstop=a:spaces
 endfunction
