@@ -8,36 +8,32 @@ filetype off                            " required by vundle
 set runtimepath+=~/.vim/bundle/vundle/
 call vundle#rc()
 
-Bundle 'gmarik/vundle'
 Bundle 'Valloric/YouCompleteMe'
+Bundle 'scrooloose/syntastic.git'
 Bundle 'kien/ctrlp.vim'
 Bundle 'SirVer/ultisnips'
-"Bundle 'airblade/vim-gitgutter.git'
-Bundle 'scrooloose/syntastic.git'
 Bundle 'scrooloose/nerdtree.git'
-Bundle 'tpope/vim-fugitive.git'
-"Bundle 'tpope/vim-markdown.git'
-"Bundle 'tpope/vim-rails.git'
 Bundle 'tpope/vim-surround.git'
-"Bundle 'tpope/vim-liquid.git'
-"Bundle 'kchmck/vim-coffee-script.git'
-"Bundle 'git://github.com/pangloss/vim-javascript.git'
 Bundle 'mileszs/ack.vim.git'
 Bundle 'Lokaltog/vim-easymotion.git'
 Bundle 'xolox/vim-easytags.git'
 Bundle 'xolox/vim-session.git'
 Bundle 'xolox/vim-misc.git'
-"Bundle 'altercation/vim-colors-solarized.git'
-Bundle 'Chiel92/vim-autoformat'
-"Bundle 'elzr/vim-json.git'
-"Bundle 'othree/xml.vim'
 Bundle 'scrooloose/nerdcommenter.git'
-"Bundle 'mhinz/vim-startify.git'
-"Bundle 'othree/javascript-libraries-syntax.vim.git'
-"Bundle 'marijnh/tern_for_vim.git'
 Bundle 'majutsushi/tagbar.git'
 Bundle 'vim-scripts/greplace.vim.git'
-"Bundle 'bling/vim-airline'
+Bundle 'bling/vim-airline'
+
+Bundle 'airblade/vim-gitgutter.git'
+Bundle 'tpope/vim-fugitive.git'
+
+Bundle 'elzr/vim-json.git'
+Bundle 'git://github.com/pangloss/vim-javascript.git'
+Bundle 'othree/javascript-libraries-syntax.vim.git'
+"Bundle 'kchmck/vim-coffee-script.git'
+"Bundle 'tpope/vim-liquid.git'
+"Bundle 'tpope/vim-markdown.git'
+"Bundle 'tpope/vim-rails.git'
 
 filetype plugin indent on               " required by vundle
 
@@ -112,8 +108,6 @@ set go-=L
 
 syntax on
 colorscheme molokai
-"set background=dark
-"set scroll=5
 
 command! Vimrc e ~/.vimrc
 command! Respace %s!\s\+$!
@@ -147,11 +141,13 @@ set clipboard=unnamed
 
 let g:ackprg = 'ag --nogroup --ignore-case --literal --all-text --follow --column'
 
+set completeopt-=preview
+
 "autocmd BufEnter * silent! lcd %:p:h
 
 " javascript-libraries-syntax
 
-"let g:used_javascript_libs = 'jquery,angularjs,jasmine'
+let g:used_javascript_libs = 'jquery,angularjs,jasmine'
 
 " tag bar
 nmap <c-[> :TagbarOpenAutoClose<CR>
@@ -205,8 +201,6 @@ let g:ycm_add_preview_to_completeopt = 0
 let g:ycm_autoclose_preview_window_after_completion = 1
 let g:ycm_confirm_extra_conf = 0
 
-set completeopt-=preview
-
 " git gutter
 
 let g:gitgutter_realtime = 0
@@ -231,7 +225,7 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
 let g:UltiSnipsSnippetsDir="~/.vim/my_snippets"
 set runtimepath+=~/.vim/bundle/ultisnips/
 
-" ctrl p navigation
+" ctrl p
 
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
@@ -249,24 +243,13 @@ let g:ctrlp_max_files = 0
 
 " ctags convenience funcs
 
-"set tags=./tags,tags;$HOME
-"set tags=./tags;/
 let g:easytags_updatetime_min = 2000
 let g:easytags_async = 1
 
-" alternate
-
-"autocmd FileType objc let g:alternateExtensions_h = "m"
-"autocmd FileType objc let g:alternateExtensions_m = "h"
-
-" auto reloading of vimrc
-
-augroup reload_vimrc
-  autocmd!
-  autocmd BufWritePost $MYVIMRC source $MYVIMRC
-augroup END
+" functions ====================================================================
 
 " max/min windows
+
 nnoremap <C-\> :call MaximizeToggle()<CR>
 
 function! MaximizeToggle()
@@ -279,27 +262,6 @@ function! MaximizeToggle()
   endif
 endfunction
 
-" Highlight all instances of word under cursor, when idle.
-nnoremap z/ :if AutoHighlightToggle()<Bar>set hls<Bar>endif<CR>
-function! AutoHighlightToggle()
-  let @/ = ''
-  if exists('#auto_highlight')
-    au! auto_highlight
-    augroup! auto_highlight
-    setl updatetime=0
-    echo 'Highlight current word: off'
-    return 0
-  else
-    augroup auto_highlight
-      au!
-      au CursorHold * let @/ = '\V\<'.escape(expand('<cword>'), '\').'\>'
-    augroup end
-    setl updatetime=0
-    echo 'Highlight current word: ON'
-    return 1
-  endif
-endfunction
-
 " Delete hidden buffers
 function! DeleteHiddenBuffers()
     let tpbl=[]
@@ -308,4 +270,9 @@ function! DeleteHiddenBuffers()
         silent execute 'bwipeout' buf
     endfor
     echo 'OK'
+endfunction
+
+" SetTab
+function! SetTab(spaces)
+    set shiftwidth=a:spaces tabstop=a:spaces softtabstop=a:spaces
 endfunction
