@@ -109,9 +109,6 @@ set go-=L
 syntax on
 colorscheme molokai
 
-command! Vimrc e ~/.vimrc
-command! Respace %s!\s\+$!
-
 set number                        " line numbers
 set splitright                    " new splits are opened on the top
 set splitbelow                    " new splits are opened on the bottom
@@ -246,7 +243,17 @@ let g:ctrlp_max_files = 0
 let g:easytags_updatetime_min = 2000
 let g:easytags_async = 1
 
-" functions ====================================================================
+" functions + commands =========================================================
+
+command! Vimrc e ~/.vimrc
+command! Respace %s!\s\+$!
+
+" auto reloading of vimrc
+
+augroup reload_vimrc " {
+  autocmd!
+  autocmd BufWritePost $MYVIMRC source $MYVIMRC
+augroup END " }
 
 " max/min windows
 
@@ -275,4 +282,29 @@ endfunction
 " SetTab
 function! SetTab(spaces)
     set shiftwidth=a:spaces tabstop=a:spaces softtabstop=a:spaces
+endfunction
+
+" SaveQuickFixList
+command! SaveQuickFixList call SaveQuickFixList()
+function! SaveQuickFixList()
+    let fname = $HOME . "/.vim_quick_fix_list"
+    let list = getqflist()
+    for i in range(len(list))
+        if has_key(list[i], 'bufnr')
+            let list[i].filename = fnamemodify(bufname(list[i].bufnr), ':p')
+            unlet list[i].bufnr
+        endif
+    endfor
+    let string = string(list)
+    let lines = split(string, "\n")
+    call writefile(lines, fname)
+endfunction
+
+" LoadQuickFixlist
+command! LoadQuickFixList call LoadQuickFixList()
+function! LoadQuickFixList()
+    let fname = $HOME . "/.vim_quick_fix_list"
+    let lines = readfile(fname)
+    let string = join(lines, "\n")
+    call setqflist(eval(string))
 endfunction
