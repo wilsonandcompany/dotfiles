@@ -10,6 +10,7 @@ call vundle#rc()
 
 Bundle 'Valloric/YouCompleteMe'
 Bundle 'scrooloose/syntastic.git'
+Bundle 'gmarik/vundle'
 Bundle 'kien/ctrlp.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'scrooloose/nerdtree.git'
@@ -23,6 +24,7 @@ Bundle 'scrooloose/nerdcommenter.git'
 Bundle 'majutsushi/tagbar.git'
 Bundle 'vim-scripts/greplace.vim.git'
 Bundle 'bling/vim-airline'
+Bundle 'tomasr/molokai'
 
 Bundle 'airblade/vim-gitgutter.git'
 Bundle 'tpope/vim-fugitive.git'
