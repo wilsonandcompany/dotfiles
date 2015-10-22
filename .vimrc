@@ -29,6 +29,7 @@ Bundle 'tomasr/molokai'
 Bundle 'airblade/vim-gitgutter.git'
 Bundle 'tpope/vim-fugitive.git'
 
+" language specific
 Bundle 'elzr/vim-json.git'
 Bundle 'git://github.com/pangloss/vim-javascript.git'
 Bundle 'othree/javascript-libraries-syntax.vim.git'
@@ -101,9 +102,7 @@ nnoremap k gk
 nnoremap <leader><space> :noh<cr>
 set gfn=Menlo\ Regular:h14
 
-if $TERM == "xterm-256color" || $TERM == "screen-256color" || $COLORTERM == "gnome-terminal"
-  set t_Co=256
-endif
+set t_Co=256
 
 " fix for macvim
 set go-=L
@@ -144,12 +143,16 @@ set completeopt-=preview
 
 "autocmd BufEnter * silent! lcd %:p:h
 
+set backupdir=~/.vim/backup//
+set directory=~/.vim/swap//
+set undodir=~/.vim/undo//
+
 " javascript-libraries-syntax
 
 let g:used_javascript_libs = 'jquery,angularjs,jasmine'
 
 " tag bar
-nmap <c-[> :TagbarOpenAutoClose<CR>
+nnoremap <c-[> :TagbarOpenAutoClose<CR>
 
 " session
 
@@ -182,15 +185,6 @@ let g:syntastic_html_tidy_ignore_errors = [
 
 "let g:loaded_syntastic_javascript_jshint_checker
 let g:syntastic_always_populate_loc_list=1
-
-" status line
-
-set statusline=
-set statusline+=%m
-set statusline+=%f\                    " path
-set statusline+=%=%#error#
-"set statusline+=%{SyntasticStatuslineFlag()}
-set statusline+=%*[%l:%c]            " line and column
 
 " ycm
 

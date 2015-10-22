@@ -17,6 +17,7 @@
   unpushed = !"PROJ_BRANCH=$(git symbolic-ref HEAD | sed 's|refs/heads/||') && git log origin/$PROJ_BRANCH..HEAD"
   unpulled = !"PROJ_BRANCH=$(git symbolic-ref HEAD | sed 's|refs/heads/||') && git fetch && git log HEAD..origin/$PROJ_BRANCH"
   b = branch
+  br = branch -r
   s = status --short --branch
   co = checkout
   a = add
@@ -27,7 +28,8 @@
   cam = commit -am
   cm = commit -m
   undo = reset --soft HEAD~
-  ll = log --first-parent
+  ll = log
+  lfp = log --first-parent
   ;ll = log --pretty=format:"%C(yellow)%h\\ %Cblue[%cn]\\ %Cgreen<%ad>\\ %n%Creset%s%n" --decorate
   l = "!git log --pretty='tformat:%C(yellow)%h{%C(green)%ar{%C(bold blue)%an{%C(red)%d%C(reset) %s' $* | column -t -s '{' | less -FXRS"
   lg = log --graph --pretty=format:'%Cred%h%Creset %an -%C(yellow)%d%Creset %s %Cgreen(%cr)%Creset' --abbrev-commit --date=relative

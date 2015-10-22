@@ -1,5 +1,5 @@
 
-alias ll='ls -alF'
+alias l='ls -halF'
 
 # git
 alias gco='git co'
@@ -10,9 +10,10 @@ alias gcm='git cm'
 alias gs='git s'
 alias greflog='git reflog'
 alias gl='git ll'
-alias glog='git ll'
+alias glfp='git lfp'
 alias gcut='git cut'
 alias gb='git b'
+alias gbr='git b -r'
 alias gamend='git amend'
 alias gwip='git c -am "WIP"'
 alias gundo='git reset --mixed HEAD~'
