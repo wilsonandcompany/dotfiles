@@ -15,6 +15,7 @@ Bundle 'kien/ctrlp.vim'
 Bundle 'SirVer/ultisnips'
 Bundle 'scrooloose/nerdtree.git'
 Bundle 'tpope/vim-surround.git'
+Bundle 'tpope/vim-unimpaired.git'
 Bundle 'mileszs/ack.vim.git'
 Bundle 'Lokaltog/vim-easymotion.git'
 Bundle 'xolox/vim-easytags.git'
@@ -25,6 +26,7 @@ Bundle 'majutsushi/tagbar.git'
 Bundle 'vim-scripts/greplace.vim.git'
 Bundle 'bling/vim-airline'
 Bundle 'tomasr/molokai'
+Plugin 'unblevable/quick-scope'
 
 Bundle 'airblade/vim-gitgutter.git'
 Bundle 'tpope/vim-fugitive.git'
@@ -40,13 +42,21 @@ Bundle 'othree/javascript-libraries-syntax.vim.git'
 
 filetype plugin indent on               " required by vundle
 
-"""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" stuff from steve's blog
+augroup file_type_styling
+    autocmd!
+    autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+    autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
+    autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4
+    autocmd FileType php setlocal isk-=-
+augroup END
+
+set wildignore+=*/build/*,*/tmp/*,*.so,*.swp,*.zip,*.exe,*.so,*.dll,*.meta,*.png,*.wav
 
 " easily quit insert mode
+
 inoremap jj <ESC>
 inoremap jf <ESC>
-"let mapleader = ","
 
 set nocompatible
 set modelines=0
@@ -56,14 +66,6 @@ set tabstop=4
 set shiftwidth=4
 set softtabstop=4
 set expandtab                     " turn tabs into spaces
-
-augroup file_type_styling
-    autocmd!
-    autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-    autocmd FileType ruby setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    autocmd FileType javascript setlocal shiftwidth=2 tabstop=2 softtabstop=2
-    autocmd FileType html setlocal shiftwidth=4 tabstop=4 softtabstop=4
-augroup END
 
 set encoding=utf-8
 set scrolloff=3                   " minimal number of screen lines above/below cursor
@@ -134,14 +136,11 @@ nnoremap <c-w>> 15<c-w>>
 nnoremap <c-w>- 10<c-w>-
 nnoremap <c-w>+ 10<c-w>+
 
-autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
 set clipboard=unnamed
 
 let g:ackprg = 'ag --nogroup --ignore-case --literal --all-text --follow --column'
 
 set completeopt-=preview
-
-"autocmd BufEnter * silent! lcd %:p:h
 
 set backupdir=~/.vim/backup//
 set directory=~/.vim/swap//
@@ -218,12 +217,12 @@ let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
 let g:UltiSnipsSnippetsDir="~/.vim/my_snippets"
 set runtimepath+=~/.vim/bundle/ultisnips/
 
-" ctrl p
+" ctrlp
 
+let g:ctrlp_extensions = ['tag']
 let g:ctrlp_map = '<c-p>'
 let g:ctrlp_cmd = 'CtrlP'
 "let g:ctrlp_working_path_mode = 'c'
-set wildignore+=*/build/*,*/tmp/*,*.so,*.swp,*.zip,*.exe,*.so,*.dll,*.meta,*.png,*.wav
 
 let g:ctrlp_root_markers = ['.ctrlp_root']
 let g:ctrlp_custom_ignore = {
@@ -233,6 +232,7 @@ let g:ctrlp_custom_ignore = {
   \ }
 let g:ctrlp_max_depth = 1000
 let g:ctrlp_max_files = 0
+let g:ctrlp_use_caching = 1
 
 " ctags convenience funcs
 
