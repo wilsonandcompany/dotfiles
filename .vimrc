@@ -54,8 +54,6 @@ augroup END
 set wildignore+=*/build/*,*/tmp/*,*.so,*.swp,*.zip,*.exe,*.so,*.dll,*.meta,*.png,*.wav
 
 " easily quit insert mode
-
-inoremap jj <ESC>
 inoremap jf <ESC>
 
 set nocompatible
@@ -136,6 +134,9 @@ nnoremap <c-w>> 15<c-w>>
 nnoremap <c-w>- 10<c-w>-
 nnoremap <c-w>+ 10<c-w>+
 
+nnoremap ]w :cnew<CR>
+nnoremap [w :col<CR>
+
 set clipboard=unnamed
 
 let g:ackprg = 'ag --nogroup --ignore-case --literal --all-text --follow --column'
@@ -151,7 +152,7 @@ set undodir=~/.vim/undo//
 let g:used_javascript_libs = 'jquery,angularjs,jasmine'
 
 " tag bar
-nnoremap <c-[> :TagbarOpenAutoClose<CR>
+nnoremap <leader>] ::TagbarOpenAutoClose<CR>
 
 " session
 
@@ -238,6 +239,9 @@ let g:ctrlp_use_caching = 1
 
 let g:easytags_updatetime_min = 2000
 let g:easytags_async = 1
+
+" quick-scope
+let g:qs_highlight_on_keys = ['f', 'F']
 
 " functions + commands =========================================================
 
